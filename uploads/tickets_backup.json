@@ -1,0 +1,108 @@
+{
+    "status":  "success",
+    "count":  2,
+    "tickets":  [
+                    {
+                        "ticket_id":  "BEL-CIVIC-2026-0842",
+                        "hazard_type":  "pothole",
+                        "label":  "Road Surface Pothole",
+                        "severity":  "Critical",
+                        "confidence":  0.863,
+                        "lat":  26.2610602,
+                        "lng":  78.2270568,
+                        "lat_precise":  "26.261060",
+                        "lng_precise":  "78.227057",
+                        "street":  "City Arterial Corridor",
+                        "exact_address":  "City Arterial Corridor, Gwalior, Gwalior, 474001",
+                        "suburb":  "Gwalior",
+                        "city":  "Gwalior",
+                        "pincode":  "474001",
+                        "google_maps_url":  "https://www.google.com/maps?q=26.261060,78.227057",
+                        "ward":  "Ward 07 (Hebbal - Yelahanka)",
+                        "department":  "BBMP / City PWD Road Division",
+                        "created_at":  "2026-09-20 10:36:55",
+                        "sla_deadline":  "2026-09-20 16:36:55",
+                        "sla_hours":  6,
+                        "status":  "VERIFIED_RESOLVED",
+                        "assigned_contractor":  "BEL-Civic-RapidResponse-Squad-4",
+                        "sightings_count":  4,
+                        "reporting_buses":  [
+                                                "BEL-PHONE-DASHCAM-01"
+                                            ],
+                        "sightings_log":  [
+                                              {
+                                                  "bus_id":  "BEL-PHONE-DASHCAM-01",
+                                                  "timestamp":  "2026-09-20 10:36:55",
+                                                  "distance_delta_m":  0.0
+                                              },
+                                              {
+                                                  "bus_id":  "BEL-PHONE-DASHCAM-01",
+                                                  "timestamp":  "2026-09-20 10:37:42",
+                                                  "distance_delta_m":  6.8
+                                              },
+                                              {
+                                                  "bus_id":  "BEL-PHONE-DASHCAM-01",
+                                                  "timestamp":  "2026-09-20 10:38:00",
+                                                  "distance_delta_m":  6.4
+                                              },
+                                              {
+                                                  "bus_id":  "BEL-PHONE-DASHCAM-01",
+                                                  "timestamp":  "2026-09-20 10:38:56",
+                                                  "distance_delta_m":  7.4
+                                              }
+                                          ],
+                        "dimensions":  {
+                                           "diameter_cm":  129,
+                                           "estimated_depth_cm":  8,
+                                           "area_m2":  0.682,
+                                           "iri_impact":  2.24
+                                       },
+                        "imu_fused":  false,
+                        "image_url":  "/uploads/live_pothole_1789880936.jpg",
+                        "last_seen":  "2026-09-20 10:38:56",
+                        "resolved_at":  "2026-09-20 10:39:01"
+                    },
+                    {
+                        "ticket_id":  "BEL-CIVIC-2026-0843",
+                        "hazard_type":  "pothole",
+                        "label":  "Road Surface Pothole Crater",
+                        "severity":  "Moderate",
+                        "confidence":  0.88,
+                        "lat":  26.2610824,
+                        "lng":  78.2269911,
+                        "lat_precise":  "26.261082",
+                        "lng_precise":  "78.226991",
+                        "street":  "City Arterial Corridor",
+                        "exact_address":  "City Arterial Corridor, Gwalior, Gwalior, 474001",
+                        "suburb":  "Gwalior",
+                        "city":  "Gwalior",
+                        "pincode":  "474001",
+                        "google_maps_url":  "https://www.google.com/maps?q=26.261082,78.226991",
+                        "ward":  "Ward 07 (Hebbal - Yelahanka)",
+                        "department":  "BBMP / City PWD Road Division",
+                        "created_at":  "2026-09-20 10:39:02",
+                        "sla_deadline":  "2026-09-20 22:39:02",
+                        "sla_hours":  12,
+                        "status":  "VERIFIED_RESOLVED",
+                        "assigned_contractor":  "BEL-Civic-RapidResponse-Squad-4",
+                        "sightings_count":  1,
+                        "reporting_buses":  [
+                                                "BEL-PHONE-DASHCAM-01"
+                                            ],
+                        "sightings_log":  [
+                                              {
+                                                  "bus_id":  "BEL-PHONE-DASHCAM-01",
+                                                  "timestamp":  "2026-09-20 10:39:02",
+                                                  "distance_delta_m":  0.0
+                                              }
+                                          ],
+                        "dimensions":  {
+                                           "ai_explanation":  "The image shows an outdoor unpaved road with a depression filled with standing muddy water, constituting a road hazard / pothole.",
+                                           "scene":  "Dirt and mud road surface with standing water and depressions"
+                                       },
+                        "imu_fused":  false,
+                        "image_url":  "/uploads/live_pothole_1789880942.jpg",
+                        "resolved_at":  "2026-09-20 10:39:18"
+                    }
+                ]
+}

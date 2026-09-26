@@ -1,0 +1,258 @@
+{
+  "tickets": {
+    "BEL-CIVIC-2026-0842": {
+      "ticket_id": "BEL-CIVIC-2026-0842",
+      "hazard_type": "pothole",
+      "label": "Road Surface Pothole",
+      "severity": "Critical",
+      "confidence": 0.863,
+      "lat": 26.2610602,
+      "lng": 78.2270568,
+      "lat_precise": "26.261060",
+      "lng_precise": "78.227057",
+      "street": "City Arterial Corridor",
+      "exact_address": "City Arterial Corridor, Gwalior, Gwalior, 474001",
+      "suburb": "Gwalior",
+      "city": "Gwalior",
+      "pincode": "474001",
+      "google_maps_url": "https://www.google.com/maps?q=26.261060,78.227057",
+      "ward": "Ward 14 (Gwalior - Gwalior Municipal Corp)",
+      "department": "Gwalior Municipal Corp / PWD Road Division",
+      "created_at": "2026-09-20 10:36:55",
+      "sla_deadline": "2026-09-20 16:36:55",
+      "sla_hours": 6,
+      "status": "VERIFIED_RESOLVED",
+      "assigned_contractor": "BEL-Civic-RapidResponse-Squad-4",
+      "sightings_count": 4,
+      "reporting_buses": [
+        "BEL-PHONE-DASHCAM-01"
+      ],
+      "sightings_log": [
+        {
+          "bus_id": "BEL-PHONE-DASHCAM-01",
+          "timestamp": "2026-09-20 10:36:55",
+          "distance_delta_m": 0.0
+        },
+        {
+          "bus_id": "BEL-PHONE-DASHCAM-01",
+          "timestamp": "2026-09-20 10:37:42",
+          "distance_delta_m": 6.8
+        },
+        {
+          "bus_id": "BEL-PHONE-DASHCAM-01",
+          "timestamp": "2026-09-20 10:38:00",
+          "distance_delta_m": 6.4
+        },
+        {
+          "bus_id": "BEL-PHONE-DASHCAM-01",
+          "timestamp": "2026-09-20 10:38:56",
+          "distance_delta_m": 7.4
+        }
+      ],
+      "dimensions": {
+        "diameter_cm": 129,
+        "estimated_depth_cm": 8,
+        "area_m2": 0.682,
+        "iri_impact": 2.24
+      },
+      "imu_fused": false,
+      "image_url": "/uploads/live_pothole_1789880936.jpg",
+      "last_seen": "2026-09-20 10:38:56",
+      "resolved_at": "2026-09-20 10:39:01",
+      "source": "MOBILE_DASHCAM",
+      "penalty_per_day_inr": 500,
+      "penalty_incurred_inr": 0,
+      "overdue": false,
+      "contractor_payment_cleared": true,
+      "repair_image_url": "/static/assets/sample_repaired_road.jpg",
+      "repair_verified_at": "2026-09-20 10:39:01",
+      "ai_verification_notes": "AI Visual Audit: Surface restored to smooth bitumen grade. Defect crater sealed with 0mm residual depth. Contractor escrow payment cleared.",
+      "is_anonymous": false,
+      "upvotes": 19,
+      "comments": [
+        {
+          "comment_id": "c_BEL-CIVIC-2026-0842_1",
+          "author": "Transit Safety Bot",
+          "is_anonymous": false,
+          "text": "Captured automatically by Bus Dashcam telemetry. Vertical G-force bump peak registered at 1.45G.",
+          "timestamp": "2026-09-20 10:45:00",
+          "is_official": true
+        }
+      ],
+      "overdue_hours": 0
+    },
+    "BEL-CIVIC-2026-0843": {
+      "ticket_id": "BEL-CIVIC-2026-0843",
+      "hazard_type": "pothole",
+      "label": "Road Surface Pothole Crater",
+      "severity": "Moderate",
+      "confidence": 0.88,
+      "lat": 26.2610824,
+      "lng": 78.2269911,
+      "lat_precise": "26.261082",
+      "lng_precise": "78.226991",
+      "street": "City Arterial Corridor",
+      "exact_address": "City Arterial Corridor, Gwalior, Gwalior, 474001",
+      "suburb": "Gwalior",
+      "city": "Gwalior",
+      "pincode": "474001",
+      "google_maps_url": "https://www.google.com/maps?q=26.261082,78.226991",
+      "ward": "Ward 14 (Gwalior - Gwalior Municipal Corp)",
+      "department": "Gwalior Municipal Corp / PWD Road Division",
+      "created_at": "2026-09-20 10:39:02",
+      "sla_deadline": "2026-09-20 22:39:02",
+      "sla_hours": 12,
+      "status": "VERIFIED_RESOLVED",
+      "assigned_contractor": "BEL-Civic-RapidResponse-Squad-4",
+      "sightings_count": 1,
+      "reporting_buses": [
+        "BEL-PHONE-DASHCAM-01"
+      ],
+      "sightings_log": [
+        {
+          "bus_id": "BEL-PHONE-DASHCAM-01",
+          "timestamp": "2026-09-20 10:39:02",
+          "distance_delta_m": 0.0
+        }
+      ],
+      "dimensions": {
+        "ai_explanation": "The image shows an outdoor unpaved road with a depression filled with standing muddy water, constituting a road hazard / pothole.",
+        "scene": "Dirt and mud road surface with standing water and depressions"
+      },
+      "imu_fused": false,
+      "image_url": "/uploads/live_pothole_1789880942.jpg",
+      "resolved_at": "2026-09-20 10:39:18",
+      "source": "MOBILE_DASHCAM",
+      "penalty_per_day_inr": 500,
+      "penalty_incurred_inr": 0,
+      "overdue": false,
+      "contractor_payment_cleared": true,
+      "repair_image_url": "/static/assets/sample_repaired_road.jpg",
+      "repair_verified_at": "2026-09-20 10:39:18",
+      "ai_verification_notes": "AI Visual Audit: Surface restored to smooth bitumen grade. Defect crater sealed with 0mm residual depth. Contractor escrow payment cleared.",
+      "is_anonymous": false,
+      "upvotes": 5,
+      "comments": [
+        {
+          "comment_id": "c_BEL-CIVIC-2026-0843_1",
+          "author": "Transit Safety Bot",
+          "is_anonymous": false,
+          "text": "Captured automatically by Bus Dashcam telemetry. Vertical G-force bump peak registered at 1.45G.",
+          "timestamp": "2026-09-20 10:45:00",
+          "is_official": true
+        }
+      ],
+      "overdue_hours": 0
+    },
+    "BEL-CIVIC-2026-0844": {
+      "ticket_id": "BEL-CIVIC-2026-0844",
+      "hazard_type": "broken_streetlight",
+      "label": "Broken Streetlight",
+      "severity": "High",
+      "confidence": 0.955,
+      "lat": 26.219,
+      "lng": 78.184,
+      "lat_precise": "26.219000",
+      "lng_precise": "78.184000",
+      "street": "Maharaja Agrasen Marg, Gwalior",
+      "exact_address": "Padav Pul, Gwalior, Gwalior, 474002",
+      "suburb": "Gwalior",
+      "city": "Gwalior",
+      "pincode": "474002",
+      "google_maps_url": "https://www.google.com/maps?q=26.219000,78.184000",
+      "ward": "Ward 14 (Gwalior - Gwalior Municipal Corp)",
+      "department": "Municipal Public Works",
+      "created_at": "2026-09-21 19:45:22",
+      "sla_deadline": "2026-09-22 19:45:22",
+      "sla_hours": 24,
+      "status": "DETECTED",
+      "assigned_contractor": "NCC Urban Infrastructure Ltd",
+      "penalty_per_day_inr": 500,
+      "penalty_incurred_inr": 0,
+      "overdue": false,
+      "repair_image_url": null,
+      "repair_verified_at": null,
+      "ai_verification_notes": null,
+      "contractor_payment_cleared": false,
+      "source": "CITIZEN_GRIEVANCE",
+      "citizen_remarks": "Streetlamp flickering and dark blackspot at blind curve.",
+      "citizen_name": "Aman Sharma",
+      "citizen_phone": "+91-9876543210",
+      "is_anonymous": false,
+      "upvotes": 1,
+      "comments": [],
+      "sightings_count": 1,
+      "reporting_buses": [
+        "CITIZEN-APP-9562"
+      ],
+      "sightings_log": [
+        {
+          "bus_id": "CITIZEN-APP-9562",
+          "timestamp": "2026-09-21 19:45:22",
+          "distance_delta_m": 0.0
+        }
+      ],
+      "dimensions": {
+        "source": "Verified Citizen Grievance Portal Upload"
+      },
+      "imu_fused": false,
+      "image_url": "/uploads/citizen_report_1790000122.jpg",
+      "overdue_hours": 0
+    },
+    "BEL-CIVIC-2026-0845": {
+      "ticket_id": "BEL-CIVIC-2026-0845",
+      "hazard_type": "broken_streetlight",
+      "label": "Broken Streetlight",
+      "severity": "Critical",
+      "confidence": 0.955,
+      "lat": 26.2183,
+      "lng": 78.1828,
+      "lat_precise": "26.218300",
+      "lng_precise": "78.182800",
+      "street": "Station Road Ward 14",
+      "exact_address": "Padaav Pul Flyover, Gwalior, Gwalior, 474001",
+      "suburb": "Gwalior",
+      "city": "Gwalior",
+      "pincode": "474001",
+      "google_maps_url": "https://www.google.com/maps?q=26.218300,78.182800",
+      "ward": "Ward 14 (Gwalior - Gwalior Municipal Corp)",
+      "department": "Municipal Public Works",
+      "created_at": "2026-09-21 20:17:55",
+      "sla_deadline": "2026-09-22 08:17:55",
+      "sla_hours": 12,
+      "status": "DETECTED",
+      "assigned_contractor": "NCC Urban Infrastructure Ltd",
+      "penalty_per_day_inr": 500,
+      "penalty_incurred_inr": 0,
+      "overdue": false,
+      "repair_image_url": null,
+      "repair_verified_at": null,
+      "ai_verification_notes": null,
+      "contractor_payment_cleared": false,
+      "source": "CITIZEN_GRIEVANCE",
+      "citizen_remarks": "Dark road blackspot near metro pillar 42 #BrokenStreetlight",
+      "citizen_name": "Concerned Citizen",
+      "citizen_phone": "+91-9876543210",
+      "is_anonymous": false,
+      "upvotes": 1,
+      "comments": [],
+      "sightings_count": 1,
+      "reporting_buses": [
+        "CITIZEN-APP-7762"
+      ],
+      "sightings_log": [
+        {
+          "bus_id": "CITIZEN-APP-7762",
+          "timestamp": "2026-09-21 20:17:55",
+          "distance_delta_m": 0.0
+        }
+      ],
+      "dimensions": {
+        "source": "Verified Citizen Grievance Portal Upload"
+      },
+      "imu_fused": false,
+      "image_url": "/uploads/citizen_report_1790002075.jpg"
+    }
+  },
+  "counter": 845
+}
