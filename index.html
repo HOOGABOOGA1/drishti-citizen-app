@@ -3,51 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>DRISHTI AI — Citizen Road Safety & Municipal Grievance Network</title>
+    <title>DRISHTI AI — Municipal Road Safety & Citizen Action Network</title>
     <link rel="icon" type="image/png" href="./assets/app_icon_512.png">
     <link rel="manifest" href="./manifest.json">
-    <meta name="theme-color" content="#070a11">
+    <meta name="theme-color" content="#ffffff">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    
+    <!-- Typography: Plus Jakarta Sans & JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
     
     <!-- Leaflet GIS Map CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
 
     <style>
         :root {
-            --bg-base: #070a11;
-            --bg-surface: #0e1422;
-            --bg-card: rgba(16, 24, 39, 0.75);
-            --bg-card-hover: rgba(22, 33, 54, 0.85);
-            --border-glass: rgba(255, 255, 255, 0.08);
-            --border-glass-hover: rgba(255, 255, 255, 0.16);
-            --text-main: #f1f5f9;
-            --text-secondary: #94a3b8;
-            --text-muted: #64748b;
+            /* Light Theme & Surface Foundation */
+            --bg-body: #f8fafc;
+            --bg-surface: #ffffff;
+            --bg-subtle: #f1f5f9;
+            --bg-elevated: #ffffff;
             
-            --brand-primary: #0284c7;
-            --brand-cyan: #06b6d4;
-            --brand-glow: rgba(6, 182, 212, 0.25);
+            /* Charcoal Typography */
+            --text-heading: #0f172a;
+            --text-body: #334155;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
             
-            /* Status Colors (Clear, Definite Semantics) */
-            --status-critical: #ef4444;      /* Red = Critical / Detected */
-            --status-critical-bg: rgba(239, 68, 68, 0.12);
-            --status-critical-border: rgba(239, 68, 68, 0.35);
+            /* Restrained Indian Civic-Tech Accents */
+            --saffron-primary: #ea580c;
+            --saffron-hover: #c2410c;
+            --saffron-subtle: #fff7ed;
+            --saffron-border: #fed7aa;
             
-            --status-progress: #f59e0b;      /* Orange = In Progress / Dispatched */
-            --status-progress-bg: rgba(245, 158, 11, 0.12);
-            --status-progress-border: rgba(245, 158, 11, 0.35);
+            --navy-gov: #1e3a8a;
+            --navy-subtle: #eff6ff;
+            --navy-border: #bfdbfe;
             
-            --status-fixed: #10b981;         /* Green = Fixed / Verified */
-            --status-fixed-bg: rgba(16, 185, 129, 0.12);
-            --status-fixed-border: rgba(16, 185, 129, 0.35);
+            --green-fixed: #16a34a;
+            --green-subtle: #f0fdf4;
+            --green-border: #bbf7d0;
             
-            --bus-usp-bg: rgba(14, 165, 233, 0.14);
-            --bus-usp-border: rgba(56, 189, 248, 0.4);
-            --bus-usp-text: #38bdf8;
+            --amber-progress: #d97706;
+            --amber-subtle: #fffbeb;
+            --amber-border: #fde68a;
+            
+            --red-critical: #dc2626;
+            --red-subtle: #fef2f2;
+            --red-border: #fecaca;
+
+            /* Borders & Shadows */
+            --border-light: #e2e8f0;
+            --border-hover: #cbd5e1;
+            --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05);
+            --shadow-card: 0 4px 16px -2px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.04);
+            --shadow-hover: 0 12px 28px -4px rgba(15, 23, 42, 0.1), 0 3px 8px rgba(15, 23, 42, 0.05);
+            --shadow-float: 0 16px 36px -6px rgba(15, 23, 42, 0.14);
+            
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 22px;
         }
 
         * {
@@ -58,153 +76,179 @@
         }
 
         body {
-            background-color: var(--bg-base);
-            color: var(--text-main);
+            background-color: var(--bg-body);
+            color: var(--text-body);
             font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             min-height: 100vh;
             line-height: 1.5;
             padding-bottom: 84px; /* Space for bottom nav */
             overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.08) 0%, transparent 45%),
-                radial-gradient(circle at 100% 20%, rgba(14, 165, 233, 0.05) 0%, transparent 35%);
-            background-attachment: fixed;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Container Max Width */
-        .app-shell {
-            max-width: 768px;
+        /* Responsive Shell */
+        .app-container {
+            max-width: 1200px;
             margin: 0 auto;
-            min-height: 100vh;
-            position: relative;
             padding: 0 16px;
         }
 
-        /* ================= TOP BAR ================= */
+        /* ================= TOP NAVIGATION BAR ================= */
         .top-navbar {
             position: sticky;
             top: 0;
             z-index: 100;
-            background: rgba(7, 10, 17, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-glass);
-            margin: 0 -16px 16px -16px;
-            padding: 12px 18px;
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-light);
+            padding: 12px 0;
+            margin-bottom: 18px;
+        }
+
+        .nav-inner {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 12px;
         }
 
-        .brand-block {
+        /* Clean DRISHTI AI Logo & Wordmark */
+        .brand-logo {
             display: flex;
             align-items: center;
             gap: 10px;
             text-decoration: none;
-            color: inherit;
+            color: var(--text-heading);
+            cursor: pointer;
         }
 
-        .brand-logo-icon {
-            width: 36px;
-            height: 36px;
-            background: linear-gradient(135deg, #0284c7 0%, #06b6d4 100%);
+        .brand-symbol {
+            width: 38px;
+            height: 38px;
             border-radius: 10px;
+            background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
-            box-shadow: 0 0 14px var(--brand-glow);
+            color: #fff;
+            font-size: 19px;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(30, 58, 138, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .brand-text h1 {
-            font-size: 17px;
+        .brand-symbol::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--saffron-primary);
+            border: 2px solid #fff;
+        }
+
+        .brand-title {
+            font-size: 18px;
             font-weight: 800;
             letter-spacing: -0.02em;
-            color: #fff;
+            color: var(--text-heading);
             display: flex;
             align-items: center;
             gap: 6px;
+            line-height: 1.1;
+        }
+        
+        .brand-subtitle {
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
         }
 
         .brand-badge {
             font-size: 9.5px;
             font-weight: 700;
-            background: rgba(6, 182, 212, 0.15);
-            color: var(--brand-cyan);
-            border: 1px solid rgba(6, 182, 212, 0.3);
+            background: var(--navy-subtle);
+            color: var(--navy-gov);
+            border: 1px solid var(--navy-border);
             border-radius: 4px;
             padding: 1px 5px;
-            letter-spacing: 0.05em;
         }
 
+        /* Location Ward Selector Pill */
         .location-pill {
             display: inline-flex;
             align-items: center;
-            gap: 5px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--border-glass);
+            gap: 6px;
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-light);
             border-radius: 20px;
-            padding: 4px 10px;
-            font-size: 11.5px;
-            color: var(--text-secondary);
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-heading);
             cursor: pointer;
             transition: all 0.2s;
         }
         .location-pill:hover {
-            border-color: var(--border-glass-hover);
-            color: var(--text-main);
+            background: #e2e8f0;
+            border-color: var(--border-hover);
         }
 
-        .top-actions {
+        .nav-right-actions {
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        .sync-indicator {
+        /* Unobtrusive Sync Status Indicator */
+        .sync-badge {
             display: inline-flex;
             align-items: center;
             gap: 5px;
             font-size: 11px;
             font-weight: 600;
-            padding: 3px 8px;
-            border-radius: 12px;
-            background: rgba(16, 185, 129, 0.1);
-            color: #34d399;
-            border: 1px solid rgba(16, 185, 129, 0.25);
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: var(--green-subtle);
+            color: var(--green-fixed);
+            border: 1px solid var(--green-border);
         }
         .sync-dot {
-            width: 7px;
-            height: 7px;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
-            background: #10b981;
-            box-shadow: 0 0 6px #10b981;
+            background: var(--green-fixed);
         }
 
-        .icon-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-glass);
-            color: var(--text-main);
-            width: 34px;
-            height: 34px;
+        .action-icon-btn {
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
+            color: var(--text-heading);
             font-size: 14px;
             position: relative;
             transition: all 0.2s;
         }
-        .icon-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.2);
+        .action-icon-btn:hover {
+            border-color: var(--border-hover);
+            background: var(--bg-subtle);
         }
-        .badge-count {
+        .notif-badge {
             position: absolute;
             top: -2px;
             right: -2px;
-            background: #ef4444;
+            background: var(--saffron-primary);
             color: #fff;
             font-size: 9px;
             font-weight: 800;
@@ -214,122 +258,225 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            border: 2px solid #fff;
         }
 
-        /* ================= PRIMARY HERO ACTION ================= */
-        .report-hero-card {
-            background: linear-gradient(135deg, rgba(14, 165, 233, 0.16) 0%, rgba(6, 182, 212, 0.08) 100%);
-            border: 1px solid rgba(56, 189, 248, 0.35);
-            border-radius: 18px;
-            padding: 18px;
-            margin-bottom: 20px;
-            display: flex;
+        /* Desktop Nav Links */
+        .desktop-nav-links {
+            display: none;
             align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(12px);
+            gap: 20px;
+        }
+        .desktop-nav-link {
+            font-size: 13.5px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .desktop-nav-link:hover, .desktop-nav-link.active {
+            color: var(--saffron-primary);
         }
 
-        .report-hero-content h2 {
-            font-size: 18px;
+        /* ================= HERO SECTION ================= */
+        .hero-banner {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-xl);
+            padding: 24px 22px;
+            margin-bottom: 22px;
+            box-shadow: var(--shadow-card);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #ea580c 0%, #1e3a8a 50%, #16a34a 100%);
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--saffron-subtle);
+            color: var(--saffron-primary);
+            border: 1px solid var(--saffron-border);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .hero-title {
+            font-size: 24px;
             font-weight: 800;
-            color: #fff;
-            margin-bottom: 4px;
+            color: var(--text-heading);
+            letter-spacing: -0.02em;
+            margin-bottom: 6px;
+        }
+
+        .hero-desc {
+            font-size: 13.5px;
+            color: var(--text-secondary);
+            max-width: 620px;
+            line-height: 1.5;
+            margin-bottom: 18px;
+        }
+
+        .hero-actions {
             display: flex;
             align-items: center;
-            gap: 8px;
+            flex-wrap: wrap;
+            gap: 12px;
         }
 
-        .report-hero-content p {
-            font-size: 12.5px;
-            color: #cbd5e1;
-            line-height: 1.4;
-            max-width: 440px;
-        }
-
-        .btn-report-primary {
-            background: linear-gradient(135deg, #0284c7 0%, #06b6d4 100%);
-            color: #fff;
+        .btn-primary-action {
+            background: var(--saffron-primary);
+            color: #ffffff;
             border: none;
-            border-radius: 12px;
-            padding: 12px 20px;
+            border-radius: var(--radius-md);
+            padding: 12px 22px;
             font-size: 14px;
             font-weight: 700;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            white-space: nowrap;
-            box-shadow: 0 4px 16px rgba(6, 182, 212, 0.35);
+            box-shadow: 0 4px 14px rgba(234, 88, 12, 0.28);
             transition: all 0.2s;
-            flex-shrink: 0;
+            text-decoration: none;
         }
-        .btn-report-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(6, 182, 212, 0.5);
+        .btn-primary-action:hover {
+            background: var(--saffron-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(234, 88, 12, 0.35);
         }
 
-        /* ================= NEARBY ISSUES (MAP + MINI CARDS) ================= */
+        .btn-secondary-action {
+            background: var(--bg-surface);
+            color: var(--text-heading);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            padding: 11px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        .btn-secondary-action:hover {
+            border-color: var(--border-hover);
+            background: var(--bg-subtle);
+        }
+
+        /* ================= SECTION HEADINGS ================= */
         .section-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 12px;
+            margin: 24px 0 12px 0;
         }
-        .section-title {
-            font-size: 15px;
-            font-weight: 700;
-            color: #fff;
+        .section-heading-text {
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--text-heading);
+            letter-spacing: -0.01em;
             display: flex;
             align-items: center;
             gap: 8px;
         }
-        .section-link {
-            font-size: 12px;
-            color: var(--brand-cyan);
+        .section-action-link {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: var(--saffron-primary);
             text-decoration: none;
             cursor: pointer;
-            font-weight: 600;
+        }
+        .section-action-link:hover {
+            text-decoration: underline;
         }
 
-        .nearby-container {
-            background: var(--bg-card);
-            border: 1px solid var(--border-glass);
-            border-radius: 16px;
+        /* ================= 1. NEARBY ISSUES (COMPACT MAP + PINS) ================= */
+        .nearby-card-box {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
             overflow: hidden;
+            box-shadow: var(--shadow-card);
             margin-bottom: 22px;
         }
 
-        #nearbyMap {
-            height: 180px;
+        #nearbyInteractiveMap {
+            height: 200px;
             width: 100%;
+            background: #e2e8f0;
             z-index: 10;
-            background: #0b0f19;
         }
 
-        .nearby-strip {
+        /* Map Category Filter Tabs */
+        .map-categories-strip {
             display: flex;
-            gap: 10px;
-            padding: 12px;
+            gap: 8px;
+            padding: 10px 14px;
+            overflow-x: auto;
+            border-bottom: 1px solid var(--border-light);
+            background: #fafafa;
+        }
+        .map-cat-chip {
+            background: #ffffff;
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            padding: 4px 10px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s;
+        }
+        .map-cat-chip.active, .map-cat-chip:hover {
+            border-color: var(--text-heading);
+            color: var(--text-heading);
+            background: #fff;
+        }
+
+        .nearby-preview-strip {
+            display: flex;
+            gap: 12px;
+            padding: 14px;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
         }
-        .nearby-strip::-webkit-scrollbar {
+        .nearby-preview-strip::-webkit-scrollbar {
             height: 4px;
         }
-        .nearby-strip::-webkit-scrollbar-thumb {
-            background: rgba(255,255,255,0.15);
+        .nearby-preview-strip::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
             border-radius: 2px;
         }
 
-        .nearby-card {
-            flex: 0 0 240px;
+        .nearby-item-card {
+            flex: 0 0 250px;
             scroll-snap-align: start;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-glass);
-            border-radius: 12px;
+            background: #ffffff;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
             padding: 10px;
             cursor: pointer;
             transition: all 0.2s;
@@ -337,121 +484,118 @@
             gap: 10px;
             align-items: center;
         }
-        .nearby-card:hover {
-            border-color: var(--border-glass-hover);
-            background: rgba(255, 255, 255, 0.06);
-            transform: translateY(-2px);
+        .nearby-item-card:hover {
+            border-color: var(--border-hover);
+            box-shadow: var(--shadow-sm);
+            transform: translateY(-1px);
         }
 
-        .nearby-thumb {
-            width: 56px;
-            height: 56px;
-            border-radius: 8px;
+        .nearby-item-thumb {
+            width: 58px;
+            height: 58px;
+            border-radius: var(--radius-sm);
             object-fit: cover;
             flex-shrink: 0;
-            background: #000;
+            background: #cbd5e1;
         }
 
-        .nearby-info {
+        .nearby-item-details {
             overflow: hidden;
         }
-        .nearby-title {
-            font-size: 12.5px;
+        .nearby-item-title {
+            font-size: 13px;
             font-weight: 700;
-            color: #fff;
+            color: var(--text-heading);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
-        .nearby-dist {
+        .nearby-item-location {
             font-size: 11px;
             color: var(--text-secondary);
-            margin-top: 2px;
+            margin: 2px 0;
         }
 
-        /* ================= FILTER BAR ================= */
-        .filter-bar {
+        /* ================= 2. COMMUNITY FEED (REALISTIC CIVIC CARDS) ================= */
+        .filter-nav-bar {
             display: flex;
             gap: 8px;
             overflow-x: auto;
-            padding-bottom: 12px;
             margin-bottom: 16px;
-            -webkit-overflow-scrolling: touch;
+            padding-bottom: 4px;
         }
-        .filter-bar::-webkit-scrollbar {
+        .filter-nav-bar::-webkit-scrollbar {
             display: none;
         }
 
-        .filter-chip {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--border-glass);
+        .feed-filter-btn {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
             color: var(--text-secondary);
-            padding: 7px 14px;
+            padding: 7px 16px;
             border-radius: 20px;
             font-size: 12.5px;
             font-weight: 600;
-            white-space: nowrap;
             cursor: pointer;
+            white-space: nowrap;
             transition: all 0.2s;
         }
-        .filter-chip:hover {
-            border-color: var(--border-glass-hover);
-            color: #fff;
+        .feed-filter-btn:hover {
+            border-color: var(--border-hover);
+            color: var(--text-heading);
         }
-        .filter-chip.active {
-            background: rgba(6, 182, 212, 0.15);
-            border-color: var(--brand-cyan);
-            color: #fff;
-            box-shadow: 0 0 10px rgba(6, 182, 212, 0.25);
+        .feed-filter-btn.active {
+            background: var(--text-heading);
+            color: #ffffff;
+            border-color: var(--text-heading);
         }
 
-        /* ================= COMMUNITY FEED CARDS ================= */
-        .feed-stream {
+        .community-feed-list {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 18px;
         }
 
-        .feed-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-glass);
-            border-radius: 18px;
+        /* Civic Issue Card */
+        .civic-issue-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
             overflow: hidden;
+            box-shadow: var(--shadow-card);
             transition: all 0.25s;
             cursor: pointer;
-            backdrop-filter: blur(16px);
         }
-        .feed-card:hover {
-            border-color: var(--border-glass-hover);
-            background: var(--bg-card-hover);
-            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+        .civic-issue-card:hover {
+            border-color: var(--border-hover);
+            box-shadow: var(--shadow-hover);
         }
 
-        .feed-media-wrap {
+        .card-media-box {
             position: relative;
             width: 100%;
-            height: 220px;
-            background: #000;
+            height: 230px;
+            background: #e2e8f0;
             overflow: hidden;
         }
-        .feed-media-img {
+        .card-media-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.3s;
         }
-        .feed-card:hover .feed-media-img {
-            transform: scale(1.02);
+        .civic-issue-card:hover .card-media-img {
+            transform: scale(1.015);
         }
 
-        /* Badges over image */
-        .badge-bus-usp {
+        /* Clean Top Floating Badges */
+        .badge-bus-vision {
             position: absolute;
             top: 12px;
             left: 12px;
-            background: rgba(14, 165, 233, 0.85);
+            background: rgba(30, 58, 138, 0.9);
             backdrop-filter: blur(8px);
-            color: #fff;
+            color: #ffffff;
             font-size: 11px;
             font-weight: 700;
             padding: 4px 10px;
@@ -459,10 +603,10 @@
             display: inline-flex;
             align-items: center;
             gap: 5px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
         }
 
-        .badge-status {
+        .badge-status-pill {
             position: absolute;
             top: 12px;
             right: 12px;
@@ -470,100 +614,104 @@
             font-weight: 700;
             padding: 4px 10px;
             border-radius: 6px;
-            backdrop-filter: blur(8px);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
             display: inline-flex;
             align-items: center;
             gap: 5px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
         }
-        .status-critical {
-            background: rgba(239, 68, 68, 0.9);
+        .pill-fixed {
+            background: #16a34a;
             color: #fff;
         }
-        .status-progress {
-            background: rgba(245, 158, 11, 0.9);
+        .pill-progress {
+            background: #d97706;
             color: #fff;
         }
-        .status-fixed {
-            background: rgba(16, 185, 129, 0.9);
+        .pill-critical {
+            background: #dc2626;
             color: #fff;
         }
 
-        .feed-body {
-            padding: 16px;
+        .card-content-body {
+            padding: 16px 18px;
         }
 
-        .feed-meta-row {
+        .card-header-meta {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 8px;
             font-size: 12px;
             color: var(--text-secondary);
-        }
-
-        .feed-location {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            color: #cbd5e1;
-            font-weight: 600;
-        }
-
-        .feed-title {
-            font-size: 16px;
-            font-weight: 800;
-            color: #fff;
             margin-bottom: 6px;
         }
-
-        .feed-desc {
-            font-size: 13px;
-            color: var(--text-secondary);
-            margin-bottom: 14px;
-            line-height: 1.4;
+        .card-loc-text {
+            font-weight: 600;
+            color: var(--text-heading);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
         }
 
-        .feed-tags-row {
+        .card-title-text {
+            font-size: 16.5px;
+            font-weight: 800;
+            color: var(--text-heading);
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+
+        .card-desc-text {
+            font-size: 13px;
+            color: var(--text-body);
+            line-height: 1.45;
+            margin-bottom: 12px;
+        }
+
+        /* Pill Metadata Row */
+        .card-pills-row {
             display: flex;
             align-items: center;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 6px;
             margin-bottom: 14px;
         }
-
-        .tag-pill {
+        .chip-meta {
             font-size: 11px;
             font-weight: 600;
             padding: 3px 8px;
             border-radius: 4px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-glass);
-            color: #cbd5e1;
+            background: var(--bg-subtle);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-light);
         }
-        .tag-ai-verified {
-            background: rgba(6, 182, 212, 0.1);
-            border-color: rgba(6, 182, 212, 0.3);
-            color: var(--brand-cyan);
+        .chip-ai-verified {
+            background: var(--green-subtle);
+            color: var(--green-fixed);
+            border-color: var(--green-border);
+        }
+        .chip-dept {
+            background: var(--navy-subtle);
+            color: var(--navy-gov);
+            border-color: var(--navy-border);
         }
 
-        /* Card Action Bar (Civic & Subtle) */
-        .feed-action-bar {
+        /* Card Action Bar (Civic Utility) */
+        .card-action-bar {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-top: 1px solid var(--border-glass);
+            border-top: 1px solid var(--border-light);
             padding-top: 12px;
-            margin-top: 6px;
+            margin-top: 4px;
         }
 
-        .action-group {
+        .action-button-set {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 14px;
         }
 
-        .action-btn {
+        .civic-btn-action {
             background: transparent;
             border: none;
             color: var(--text-secondary);
@@ -574,116 +722,224 @@
             align-items: center;
             gap: 6px;
             padding: 4px 8px;
-            border-radius: 6px;
+            border-radius: var(--radius-sm);
             transition: all 0.2s;
         }
-        .action-btn:hover {
-            color: #fff;
-            background: rgba(255, 255, 255, 0.05);
+        .civic-btn-action:hover {
+            color: var(--text-heading);
+            background: var(--bg-subtle);
         }
-        .action-btn.endorsed {
-            color: var(--brand-cyan);
-            background: rgba(6, 182, 212, 0.1);
+        .civic-btn-action.active-endorsed {
+            color: var(--saffron-primary);
+            background: var(--saffron-subtle);
         }
 
-        .btn-view-details {
-            font-size: 12.5px;
+        .btn-card-details {
+            font-size: 12px;
             font-weight: 700;
-            color: var(--brand-cyan);
-            background: rgba(6, 182, 212, 0.08);
-            border: 1px solid rgba(6, 182, 212, 0.25);
+            color: var(--navy-gov);
+            background: var(--navy-subtle);
+            border: 1px solid var(--navy-border);
             padding: 5px 12px;
-            border-radius: 8px;
+            border-radius: var(--radius-sm);
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 4px;
             transition: all 0.2s;
         }
-        .btn-view-details:hover {
-            background: rgba(6, 182, 212, 0.2);
-            border-color: var(--brand-cyan);
-            color: #fff;
+        .btn-card-details:hover {
+            background: #dbeafe;
         }
 
-        /* ================= BOTTOM NAVIGATION (MOBILE/RESPONSIVE) ================= */
-        .bottom-nav {
+        /* ================= 3. BUS VISION FEATURE SECTION ================= */
+        .bus-vision-feature-card {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #ffffff;
+            border-radius: var(--radius-xl);
+            padding: 24px;
+            margin: 32px 0 24px 0;
+            box-shadow: var(--shadow-card);
+        }
+
+        .bus-badge-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(234, 88, 12, 0.2);
+            color: #fb923c;
+            border: 1px solid rgba(251, 146, 60, 0.4);
+            border-radius: 20px;
+            padding: 3px 10px;
+            font-size: 10.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+        }
+
+        .bus-feature-title {
+            font-size: 21px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .bus-feature-desc {
+            font-size: 13.5px;
+            color: #cbd5e1;
+            line-height: 1.5;
+            max-width: 680px;
+            margin-bottom: 20px;
+        }
+
+        /* Pipeline Flow Diagram */
+        .pipeline-flow-wrap {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+        .pipeline-node {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: var(--radius-md);
+            padding: 10px;
+            text-align: center;
+        }
+        .pipeline-node-icon {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+        .pipeline-node-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #e2e8f0;
+        }
+        .pipeline-node-sub {
+            font-size: 9.5px;
+            color: #94a3b8;
+            margin-top: 2px;
+        }
+
+        .bus-stats-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            padding-top: 14px;
+            font-size: 11.5px;
+            color: #94a3b8;
+        }
+        .bus-stats-item strong {
+            color: #38bdf8;
+        }
+
+        /* ================= 4. PRIVACY & MUNICIPAL TRUST SECTION ================= */
+        .trust-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+        .trust-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+        }
+        .trust-icon {
+            font-size: 22px;
+            margin-bottom: 6px;
+        }
+        .trust-card h4 {
+            font-size: 13.5px;
+            font-weight: 800;
+            color: var(--text-heading);
+            margin-bottom: 4px;
+        }
+        .trust-card p {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.45;
+        }
+
+        /* ================= BOTTOM NAVIGATION (MOBILE APPS) ================= */
+        .mobile-bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
             z-index: 100;
-            background: rgba(7, 10, 17, 0.92);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-top: 1px solid var(--border-glass);
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-top: 1px solid var(--border-light);
             display: flex;
             align-items: center;
             justify-content: space-around;
             padding: 8px 12px 14px 12px;
-            max-width: 768px;
+            max-width: 600px;
             margin: 0 auto;
         }
 
-        .nav-item {
+        .mob-nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 3px;
-            color: var(--text-muted);
+            color: var(--text-secondary);
             text-decoration: none;
-            font-size: 11px;
+            font-size: 10.5px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
-            padding: 4px 10px;
+            padding: 4px 8px;
             border-radius: 8px;
         }
-        .nav-item:hover, .nav-item.active {
-            color: #fff;
+        .mob-nav-item:hover, .mob-nav-item.active {
+            color: var(--saffron-primary);
         }
-        .nav-item.active .nav-icon {
-            color: var(--brand-cyan);
-        }
-        .nav-icon {
+        .mob-nav-icon {
             font-size: 18px;
         }
 
-        /* Report Button (Prominent in Bottom Nav) */
-        .nav-report-wrapper {
+        /* Center Prominent Report Button */
+        .mob-report-wrap {
             position: relative;
             top: -12px;
         }
-        .nav-report-btn {
+        .mob-report-btn {
             width: 48px;
             height: 48px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #0284c7 0%, #06b6d4 100%);
-            color: #fff;
+            background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
+            color: #ffffff;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 22px;
-            box-shadow: 0 4px 16px var(--brand-glow);
-            border: 3px solid var(--bg-base);
+            font-weight: 800;
+            box-shadow: 0 4px 14px rgba(234, 88, 12, 0.38);
+            border: 3px solid #ffffff;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: transform 0.2s;
         }
-        .nav-report-btn:hover {
-            transform: scale(1.08);
-            box-shadow: 0 6px 20px rgba(6, 182, 212, 0.5);
+        .mob-report-btn:hover {
+            transform: scale(1.06);
         }
 
-        /* ================= MODAL / INCIDENT DETAILS VIEW ================= */
-        .modal-overlay {
+        /* ================= MODAL & SLIDE-OVER DETAILS ================= */
+        .modal-overlay-wrap {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
             z-index: 200;
             display: none;
             align-items: center;
@@ -691,36 +947,37 @@
             padding: 16px;
             overflow-y: auto;
         }
-        .modal-overlay.active {
+        .modal-overlay-wrap.active {
             display: flex;
         }
 
-        .modal-sheet {
-            background: #0d121f;
-            border: 1px solid var(--border-glass-hover);
-            border-radius: 20px;
+        .modal-card-dialog {
+            background: #ffffff;
+            border-radius: var(--radius-xl);
             width: 100%;
-            max-width: 640px;
-            max-height: 90vh;
+            max-width: 650px;
+            max-height: 92vh;
             overflow-y: auto;
             position: relative;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+            box-shadow: var(--shadow-float);
+            border: 1px solid var(--border-light);
         }
-        .modal-sheet::-webkit-scrollbar {
+        .modal-card-dialog::-webkit-scrollbar {
             width: 6px;
         }
-        .modal-sheet::-webkit-scrollbar-thumb {
-            background: rgba(255,255,255,0.15);
+        .modal-card-dialog::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
             border-radius: 3px;
         }
 
-        .modal-close-btn {
+        .btn-modal-dismiss {
             position: absolute;
             top: 14px;
             right: 14px;
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid var(--border-glass);
-            color: #fff;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--border-light);
+            color: var(--text-heading);
             width: 32px;
             height: 32px;
             border-radius: 50%;
@@ -729,186 +986,184 @@
             justify-content: center;
             cursor: pointer;
             z-index: 10;
-            font-size: 16px;
+            font-size: 15px;
+            font-weight: 700;
         }
 
-        /* Hero Image inside Modal */
-        .modal-hero-img-wrap {
+        .modal-hero-image-box {
             position: relative;
             width: 100%;
-            height: 280px;
+            height: 270px;
             background: #000;
         }
-        .modal-hero-img {
+        .modal-hero-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        .modal-body {
-            padding: 20px;
+        .modal-body-content {
+            padding: 22px;
         }
 
-        /* Bus USP Highlight in Modal */
+        /* Bus Banner inside Modal */
         .modal-bus-banner {
-            background: var(--bus-usp-bg);
-            border: 1px solid var(--bus-usp-border);
-            border-radius: 12px;
+            background: var(--navy-subtle);
+            border: 1px solid var(--navy-border);
+            border-radius: var(--radius-md);
             padding: 12px 16px;
-            margin-bottom: 18px;
+            margin-bottom: 20px;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 12px;
         }
         .modal-bus-icon {
             font-size: 26px;
-            color: var(--bus-usp-text);
+            color: var(--navy-gov);
         }
-        .modal-bus-title {
+        .modal-bus-heading {
             font-size: 13.5px;
             font-weight: 800;
-            color: #fff;
+            color: var(--navy-gov);
         }
-        .modal-bus-desc {
+        .modal-bus-sub {
             font-size: 12px;
-            color: #cbd5e1;
-            line-height: 1.4;
+            color: var(--text-body);
+            line-height: 1.45;
+            margin-top: 2px;
         }
 
-        /* Status Timeline (5-Step Visual Progress) */
-        .timeline-container {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-glass);
-            border-radius: 14px;
+        /* Clean 7-Step Status Timeline */
+        .timeline-box {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
             padding: 16px;
             margin-bottom: 20px;
         }
-        .timeline-title {
-            font-size: 12px;
+        .timeline-label-head {
+            font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             color: var(--text-secondary);
-            margin-bottom: 14px;
+            margin-bottom: 12px;
         }
-        .timeline-steps {
+
+        .stepper-track {
             display: flex;
             align-items: center;
             justify-content: space-between;
             position: relative;
         }
-        .timeline-steps::before {
+        .stepper-track::before {
             content: '';
             position: absolute;
-            top: 14px;
-            left: 20px;
-            right: 20px;
+            top: 13px;
+            left: 16px;
+            right: 16px;
             height: 2px;
-            background: rgba(255, 255, 255, 0.1);
+            background: #cbd5e1;
             z-index: 1;
         }
-        .timeline-step {
+        .stepper-step {
             position: relative;
             z-index: 2;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
         }
-        .step-circle {
-            width: 28px;
-            height: 28px;
+        .stepper-dot {
+            width: 26px;
+            height: 26px;
             border-radius: 50%;
-            background: #1e293b;
-            border: 2px solid #334155;
-            color: #94a3b8;
+            background: #e2e8f0;
+            border: 2px solid #cbd5e1;
+            color: var(--text-secondary);
             font-size: 11px;
             font-weight: 700;
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        .timeline-step.completed .step-circle {
-            background: #10b981;
-            border-color: #10b981;
-            color: #fff;
+        .stepper-step.completed .stepper-dot {
+            background: #16a34a;
+            border-color: #16a34a;
+            color: #ffffff;
         }
-        .timeline-step.current .step-circle {
-            background: #0284c7;
-            border-color: #38bdf8;
-            color: #fff;
-            box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+        .stepper-step.active .stepper-dot {
+            background: var(--saffron-primary);
+            border-color: var(--saffron-primary);
+            color: #ffffff;
+            box-shadow: 0 0 8px rgba(234, 88, 12, 0.4);
         }
-        .step-label {
-            font-size: 10.5px;
+        .stepper-text {
+            font-size: 9.5px;
             font-weight: 600;
             color: var(--text-secondary);
             text-align: center;
         }
-        .timeline-step.completed .step-label, .timeline-step.current .step-label {
-            color: #fff;
+        .stepper-step.completed .stepper-text, .stepper-step.active .stepper-text {
+            color: var(--text-heading);
+            font-weight: 700;
         }
 
-        /* Details Key-Value Grid */
-        .details-grid {
+        /* Key Metrics Grid */
+        .incident-specs-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
             margin-bottom: 20px;
         }
-        .detail-item {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-glass);
-            border-radius: 10px;
-            padding: 10px 14px;
+        .spec-box {
+            background: #ffffff;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            padding: 10px 12px;
         }
-        .detail-label {
+        .spec-label {
             font-size: 10.5px;
+            font-weight: 600;
             color: var(--text-secondary);
-            margin-bottom: 2px;
             text-transform: uppercase;
-            letter-spacing: 0.04em;
+            letter-spacing: 0.03em;
         }
-        .detail-val {
+        .spec-val {
             font-size: 13px;
             font-weight: 700;
-            color: #fff;
+            color: var(--text-heading);
+            margin-top: 2px;
         }
 
-        /* Before/After Repair Split Comparison */
-        .before-after-box {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            border-radius: 14px;
+        /* Before/After Split Comparison Slider */
+        .repair-verification-box {
+            background: var(--green-subtle);
+            border: 1px solid var(--green-border);
+            border-radius: var(--radius-lg);
             padding: 16px;
             margin-bottom: 20px;
         }
-        .before-after-header {
+        .repair-head-title {
+            font-size: 13.5px;
+            font-weight: 800;
+            color: var(--green-fixed);
             display: flex;
             align-items: center;
             justify-content: space-between;
             margin-bottom: 12px;
         }
-        .before-after-title {
-            font-size: 13.5px;
-            font-weight: 800;
-            color: #34d399;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        
-        /* Interactive Split Slider Container */
-        .split-slider-container {
+
+        .split-compare-view {
             position: relative;
             width: 100%;
-            height: 240px;
+            height: 230px;
+            border-radius: var(--radius-md);
             overflow: hidden;
-            border-radius: 12px;
             user-select: none;
             touch-action: pan-y;
         }
-        .split-slider-img {
+        .split-img-base {
             position: absolute;
             top: 0;
             left: 0;
@@ -916,538 +1171,690 @@
             height: 100%;
             object-fit: cover;
         }
-        .split-slider-before {
-            z-index: 2;
+        .split-clip-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 50%;
+            height: 100%;
             overflow: hidden;
-            border-right: 2px solid #fff;
+            border-right: 2px solid #ffffff;
+            z-index: 2;
         }
-        .split-slider-before img {
+        .split-clip-layer img {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-        .split-slider-handle {
+        .split-drag-pin {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 36px;
-            height: 36px;
+            width: 34px;
+            height: 34px;
             border-radius: 50%;
-            background: #fff;
-            color: #000;
+            background: #ffffff;
+            color: var(--text-heading);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 800;
-            box-shadow: 0 0 14px rgba(0,0,0,0.6);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
             z-index: 5;
             cursor: ew-resize;
         }
-        .split-badge-before {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: rgba(0,0,0,0.7);
-            color: #ef4444;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 10.5px;
-            font-weight: 700;
-            z-index: 4;
-        }
-        .split-badge-after {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(0,0,0,0.7);
-            color: #10b981;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 10.5px;
-            font-weight: 700;
-            z-index: 4;
-        }
 
-        /* Discussion Block inside Modal */
-        .comments-section {
-            border-top: 1px solid var(--border-glass);
+        /* Discussion Thread */
+        .discussion-block {
+            border-top: 1px solid var(--border-light);
             padding-top: 16px;
         }
-        .comments-title {
-            font-size: 13px;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 12px;
-        }
-        .comments-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 14px;
-            max-height: 180px;
-            overflow-y: auto;
-        }
-        .comment-item {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 8px;
+        .comment-post-item {
+            background: var(--bg-subtle);
+            border-radius: var(--radius-sm);
             padding: 8px 12px;
             font-size: 12px;
+            margin-bottom: 8px;
         }
-        .comment-author {
+        .comment-author-name {
             font-weight: 700;
-            color: #38bdf8;
+            color: var(--navy-gov);
             margin-bottom: 2px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .comment-text {
-            color: #cbd5e1;
-        }
-        .comment-input-row {
-            display: flex;
-            gap: 8px;
-        }
-        .comment-input {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-glass);
-            border-radius: 8px;
-            padding: 8px 12px;
-            color: #fff;
-            font-size: 12px;
-            outline: none;
-        }
-        .btn-comment-submit {
-            background: var(--brand-primary);
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            padding: 8px 14px;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
         }
 
-        /* ================= REPORT ISSUE DRAWER / MODAL ================= */
-        .report-form {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-        .form-label {
-            font-size: 12px;
-            font-weight: 700;
-            color: #cbd5e1;
-        }
-        .form-select, .form-input, .form-textarea {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-glass);
-            border-radius: 10px;
-            padding: 10px 12px;
-            color: #fff;
-            font-size: 13px;
-            font-family: inherit;
-            outline: none;
-        }
-        .form-select option {
-            background: #0f172a;
-            color: #fff;
-        }
-
-        .photo-picker-box {
-            border: 2px dashed rgba(56, 189, 248, 0.4);
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            background: rgba(14, 165, 233, 0.04);
-            cursor: pointer;
+        /* ================= REPORT WIZARD MODAL (STEP-BY-STEP) ================= */
+        .report-wizard-dialog {
+            background: #ffffff;
+            border-radius: var(--radius-xl);
+            width: 100%;
+            max-width: 540px;
+            padding: 24px;
+            box-shadow: var(--shadow-float);
             position: relative;
         }
-        .photo-picker-preview {
-            max-height: 160px;
-            width: 100%;
-            object-fit: cover;
-            border-radius: 8px;
+
+        .wizard-steps-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .wizard-step-node {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .wizard-step-node.active-step {
+            color: var(--saffron-primary);
+        }
+
+        .upload-dropzone {
+            border: 2px dashed var(--saffron-border);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            text-align: center;
+            background: var(--saffron-subtle);
+            cursor: pointer;
+            margin-bottom: 14px;
+        }
+        .upload-preview-box {
             display: none;
+            width: 100%;
+            max-height: 180px;
+            border-radius: var(--radius-sm);
+            object-fit: cover;
             margin-top: 10px;
         }
 
-        .voice-dictate-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-glass);
-            border-radius: 8px;
-            padding: 6px 12px;
-            color: var(--brand-cyan);
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            align-self: flex-start;
-        }
-
-        .privacy-box {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-glass);
-            border-radius: 10px;
+        .input-control {
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
             padding: 10px 12px;
-            font-size: 11.5px;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
+            font-size: 13px;
+            color: var(--text-heading);
+            font-family: inherit;
+            outline: none;
+            margin-bottom: 12px;
+        }
+        .input-control:focus {
+            border-color: var(--saffron-primary);
         }
 
-        .toast-msg {
+        /* Toast Notifications */
+        .toast-banner {
             position: fixed;
             bottom: 90px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(15, 23, 42, 0.95);
-            border: 1px solid var(--brand-cyan);
-            color: #fff;
-            padding: 10px 18px;
+            background: #0f172a;
+            color: #ffffff;
+            padding: 10px 20px;
             border-radius: 30px;
             font-size: 12.5px;
             font-weight: 600;
             z-index: 300;
             display: none;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
         }
 
-        /* Responsive Tweaks */
-        @media (max-width: 480px) {
-            .report-hero-card {
-                flex-direction: column;
-                align-items: flex-start;
+        /* Responsive Layout Tweaks */
+        @media (min-width: 992px) {
+            .desktop-nav-links {
+                display: flex;
             }
-            .btn-report-primary {
-                width: 100%;
-                justify-content: center;
+            .mobile-bottom-nav {
+                display: none;
             }
-            .details-grid {
-                grid-template-columns: 1fr;
+            body {
+                padding-bottom: 30px;
+            }
+            .hero-title {
+                font-size: 30px;
+            }
+            .main-layout-grid {
+                display: grid;
+                grid-template-columns: 2fr 1.1fr;
+                gap: 24px;
+                align-items: start;
+            }
+            #nearbyInteractiveMap {
+                height: 280px;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="app-shell">
-
-        <!-- ================= TOP BAR ================= -->
-        <header class="top-navbar">
-            <a href="#" class="brand-block" onclick="resetFeed(); return false;">
-                <div class="brand-logo-icon">👁️</div>
-                <div class="brand-text">
-                    <h1>DRISHTI AI <span class="brand-badge">CITIZEN</span></h1>
+    <!-- ================= TOP NAVIGATION BAR ================= -->
+    <header class="top-navbar">
+        <div class="app-container">
+            <div class="nav-inner">
+                <!-- Brand: DRISHTI AI -->
+                <div class="brand-logo" onclick="navigateToScreen('home')">
+                    <div class="brand-symbol">👁️</div>
+                    <div>
+                        <div class="brand-title">DRISHTI AI <span class="brand-badge">CITIZEN</span></div>
+                        <div class="brand-subtitle">Urban Safety & Road Inspection</div>
+                    </div>
                 </div>
-            </a>
 
-            <div class="location-pill" onclick="promptChangeLocation()" title="Click to change ward">
-                <span id="headerWardText">📍 Ward 34 · Maharaj Bada</span>
-            </div>
-
-            <div class="top-actions">
-                <div class="sync-indicator" title="All local offline reports synced to cloud">
-                    <span class="sync-dot"></span>
-                    <span id="syncText">Synced</span>
+                <!-- Location / Ward Selector -->
+                <div class="location-pill" onclick="promptWardChange()" title="Change Ward / Locality">
+                    <span id="locWardDisplay">📍 Ward 34 · Maharaj Bada, Gwalior</span>
                 </div>
-                <button class="icon-btn" onclick="toggleLanguage()" title="Switch English / हिन्दी">
-                    <span id="langBtnText">हिं</span>
-                </button>
-                <button class="icon-btn" onclick="showNotificationAlert()" title="Notifications">
-                    🔔
-                    <span class="badge-count">2</span>
-                </button>
-            </div>
-        </header>
 
-        <!-- ================= PRIMARY ACTION: REPORT CIVIC ISSUE ================= -->
-        <section class="report-hero-card">
-            <div class="report-hero-content">
-                <h2>📢 <span id="heroActionTitle">Report a Road Hazard</span></h2>
-                <p id="heroActionSub">Spotted a pothole, open manhole, waterlogging or dark blackspot? Report it with location for rapid municipal PWD dispatch.</p>
-            </div>
-            <button class="btn-report-primary" onclick="openReportModal()">
-                📸 <span id="heroBtnText">Snap & Report</span>
-            </button>
-        </section>
+                <!-- Desktop Nav Links -->
+                <nav class="desktop-nav-links">
+                    <span class="desktop-nav-link active" onclick="navigateToScreen('home')">Home</span>
+                    <span class="desktop-nav-link" onclick="navigateToScreen('map')">Map</span>
+                    <span class="desktop-nav-link" onclick="navigateToScreen('my_reports')">My Reports</span>
+                    <span class="desktop-nav-link" onclick="navigateToScreen('bus_vision')">Bus Vision AI</span>
+                </nav>
 
-        <!-- ================= SECTION 1: NEARBY ISSUES (MAP + MINI STRIP) ================= -->
-        <section class="section-header">
-            <div class="section-title">
-                🗺️ <span id="nearbySectionTitle">Nearby Civic Hazards</span>
-            </div>
-            <span class="section-link" onclick="openFullMapView()">View Full Map ➔</span>
-        </section>
+                <!-- Right Actions: Sync, Language, Notifications -->
+                <div class="nav-right-actions">
+                    <div class="sync-badge" title="Edge detection telemetry synchronized">
+                        <span class="sync-dot"></span>
+                        <span id="syncStatusText">AI Scan Synced</span>
+                    </div>
 
-        <div class="nearby-container">
-            <div id="nearbyMap"></div>
-            <div class="nearby-strip" id="nearbyStripContainer">
-                <!-- Dynamically populated 3-4 cards -->
+                    <button class="action-icon-btn" onclick="toggleLanguage()" title="Switch English / हिन्दी">
+                        <span id="langSwitchText" style="font-weight:700; font-size:11px;">हिं</span>
+                    </button>
+
+                    <button class="action-icon-btn" onclick="triggerNotificationTray()" title="Notifications">
+                        🔔
+                        <span class="notif-badge">2</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="app-container">
+
+        <!-- ================= SCREEN 1: HOME SCREEN ================= -->
+        <div id="screenHome">
+            
+            <!-- Hero Section -->
+            <section class="hero-banner">
+                <span class="hero-tag">🇮🇳 Smart India Civic Action Platform</span>
+                <h1 class="hero-title" id="heroHeading">Make Your City Safer</h1>
+                <p class="hero-desc" id="heroDesc">
+                    DRISHTI AI continuously monitors roads using AI-enabled public buses and citizen reports. 
+                    Flag road hazards, track municipal repair status, and improve civic infrastructure in real time.
+                </p>
+                <div class="hero-actions">
+                    <button class="btn-primary-action" onclick="openReportWizard()">
+                        📢 <span id="heroCtaReport">Report Civic Issue</span>
+                    </button>
+                    <button class="btn-secondary-action" onclick="navigateToScreen('map')">
+                        🗺️ <span id="heroCtaNearby">View Nearby Issues</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Layout Grid (Desktop Side-by-Side, Mobile Stacked) -->
+            <div class="main-layout-grid">
+                
+                <!-- Left Column: Community Feed -->
+                <div>
+                    <!-- Section Header -->
+                    <div class="section-header" style="margin-top:0;">
+                        <h2 class="section-heading-text">
+                            📋 <span id="communityFeedTitle">Community Civic Feed</span>
+                        </h2>
+                        <span class="section-action-link" onclick="resetFilterAndScroll()">Refresh Feed</span>
+                    </div>
+
+                    <!-- Clean Filter Bar -->
+                    <div class="filter-nav-bar">
+                        <button class="feed-filter-btn active" onclick="applyFeedFilter('all', this)">All Issues</button>
+                        <button class="feed-filter-btn" onclick="applyFeedFilter('bus', this)">🚌 Bus Vision</button>
+                        <button class="feed-filter-btn" onclick="applyFeedFilter('pending', this)">🔴 Pending</button>
+                        <button class="feed-filter-btn" onclick="applyFeedFilter('progress', this)">🟠 In Progress</button>
+                        <button class="feed-filter-btn" onclick="applyFeedFilter('fixed', this)">🟢 Fixed</button>
+                    </div>
+
+                    <!-- Feed List Container -->
+                    <div class="community-feed-list" id="communityFeedList">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Right Column: Nearby Issues & Map -->
+                <div>
+                    <div class="section-header" style="margin-top:0;">
+                        <h2 class="section-heading-text">
+                            🗺️ <span id="nearbySectionTitle">Nearby Civic Hazards</span>
+                        </h2>
+                        <span class="section-action-link" onclick="navigateToScreen('map')">Full Map ➔</span>
+                    </div>
+
+                    <div class="nearby-card-box">
+                        <!-- Category Pins Filter on Map -->
+                        <div class="map-categories-strip">
+                            <span class="map-cat-chip active" onclick="filterMapCategory('all', this)">All</span>
+                            <span class="map-cat-chip" onclick="filterMapCategory('pothole', this)">🕳️ Pothole</span>
+                            <span class="map-cat-chip" onclick="filterMapCategory('broken_streetlight', this)">💡 Streetlight</span>
+                            <span class="map-cat-chip" onclick="filterMapCategory('waterlogging', this)">🌊 Waterlogging</span>
+                            <span class="map-cat-chip" onclick="filterMapCategory('garbage_overflow', this)">🗑️ Garbage</span>
+                            <span class="map-cat-chip" onclick="filterMapCategory('destructed_border', this)">🚧 Barrier</span>
+                        </div>
+
+                        <!-- Compact Interactive Map -->
+                        <div id="nearbyInteractiveMap"></div>
+
+                        <!-- 3-4 Quick Nearby Incident Preview Cards -->
+                        <div class="nearby-preview-strip" id="nearbyCardsStrip">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Privacy & Trust Highlight Card -->
+                    <div class="trust-grid">
+                        <div class="trust-card">
+                            <div class="trust-icon">🛡️</div>
+                            <h4>Privacy First (DPDP Act)</h4>
+                            <p>Faces and vehicle license plates are automatically blurred before publishing.</p>
+                        </div>
+                        <div class="trust-card">
+                            <div class="trust-icon">🏛️</div>
+                            <h4>Municipal Routing</h4>
+                            <p>Direct geofenced dispatch to PWD, Electrical & Sanitation departments.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Dedicated Bus Vision Section (Main USP) -->
+            <section class="bus-vision-feature-card">
+                <span class="bus-badge-tag">DRISHTI AI Core USP</span>
+                <h2 class="bus-feature-title">Your city is being monitored while it moves.</h2>
+                <p class="bus-feature-desc">
+                    Every day, public transit buses navigate all arterial corridors. DRISHTI turns ordinary buses into a moving road inspection network.
+                    Edge AI analyzes the road locally, transmitting verified defect coordinates and snapshots without streaming heavy cloud video.
+                </p>
+
+                <!-- Step-by-Step Flow Pipeline -->
+                <div class="pipeline-flow-wrap">
+                    <div class="pipeline-node">
+                        <div class="pipeline-node-icon">🚌</div>
+                        <div class="pipeline-node-label">1. Bus Camera</div>
+                        <div class="pipeline-node-sub">Windshield Phone/Dashcam</div>
+                    </div>
+                    <div class="pipeline-node">
+                        <div class="pipeline-node-icon">⚡</div>
+                        <div class="pipeline-node-label">2. Edge CV</div>
+                        <div class="pipeline-node-sub">12-15 FPS On-Device</div>
+                    </div>
+                    <div class="pipeline-node">
+                        <div class="pipeline-node-icon">🛰️</div>
+                        <div class="pipeline-node-label">3. GPS + IMU</div>
+                        <div class="pipeline-node-sub">Shock Sensor Fusion</div>
+                    </div>
+                    <div class="pipeline-node">
+                        <div class="pipeline-node-icon">🔁</div>
+                        <div class="pipeline-node-label">4. Clustering</div>
+                        <div class="pipeline-node-sub">&lt;20m Spatial Merge</div>
+                    </div>
+                    <div class="pipeline-node">
+                        <div class="pipeline-node-icon">🏛️</div>
+                        <div class="pipeline-node-label">5. Ward Routing</div>
+                        <div class="pipeline-node-sub">Assigned to PWD/Govt</div>
+                    </div>
+                    <div class="pipeline-node">
+                        <div class="pipeline-node-icon">✅</div>
+                        <div class="pipeline-node-label">6. AI Verification</div>
+                        <div class="pipeline-node-sub">Before / After Audit</div>
+                    </div>
+                </div>
+
+                <div class="bus-stats-row">
+                    <div class="bus-stats-item">Bandwidth Saved: <strong>99.4% (Event-driven vs Video)</strong></div>
+                    <div class="bus-stats-item">False-Positive Rate: <strong>4.2% (IMU + Optical Fusion)</strong></div>
+                    <div class="bus-stats-item">Inference Latency: <strong>84.5ms (Lightweight INT8)</strong></div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- ================= SCREEN 2: FULL MAP VIEW ================= -->
+        <div id="screenMap" style="display:none;">
+            <div class="section-header">
+                <h2 class="section-heading-text">🗺️ Interactive Civic Hazard GIS Map</h2>
+                <button class="btn-secondary-action" onclick="navigateToScreen('home')">Back to Home</button>
+            </div>
+            
+            <div class="nearby-card-box" style="margin-bottom:16px;">
+                <div class="map-categories-strip">
+                    <span class="map-cat-chip active" onclick="filterMapCategory('all', this)">All</span>
+                    <span class="map-cat-chip" onclick="filterMapCategory('pothole', this)">🕳️ Potholes</span>
+                    <span class="map-cat-chip" onclick="filterMapCategory('broken_streetlight', this)">💡 Streetlights</span>
+                    <span class="map-cat-chip" onclick="filterMapCategory('waterlogging', this)">🌊 Waterlogging</span>
+                    <span class="map-cat-chip" onclick="filterMapCategory('garbage_overflow', this)">🗑️ Garbage</span>
+                </div>
+                <div id="fullScreenMap" style="height:540px; width:100%;"></div>
             </div>
         </div>
 
-        <!-- ================= SECTION 2: CLEAN FILTER BAR ================= -->
-        <div class="filter-bar">
-            <button class="filter-chip active" onclick="applyFeedFilter('all', this)">📍 All Issues</button>
-            <button class="filter-chip" onclick="applyFeedFilter('bus', this)">🚌 DRISHTI Bus Vision</button>
-            <button class="filter-chip" onclick="applyFeedFilter('pending', this)">🔴 Pending</button>
-            <button class="filter-chip" onclick="applyFeedFilter('in_progress', this)">🟠 In Progress</button>
-            <button class="filter-chip" onclick="applyFeedFilter('fixed', this)">🟢 Fixed</button>
+        <!-- ================= SCREEN 3: MY REPORTS DASHBOARD ================= -->
+        <div id="screenMyReports" style="display:none;">
+            <div class="section-header">
+                <h2 class="section-heading-text">📋 My Submitted Grievances</h2>
+                <button class="btn-primary-action" onclick="openReportWizard()">+ New Report</button>
+            </div>
+
+            <div class="filter-nav-bar">
+                <button class="feed-filter-btn active" onclick="filterMyReports('all', this)">All</button>
+                <button class="feed-filter-btn" onclick="filterMyReports('PENDING', this)">🔴 Pending</button>
+                <button class="feed-filter-btn" onclick="filterMyReports('IN_PROGRESS', this)">🟠 In Progress</button>
+                <button class="feed-filter-btn" onclick="filterMyReports('FIXED', this)">🟢 Fixed</button>
+            </div>
+
+            <div class="community-feed-list" id="myReportsList">
+                <!-- Populated by JS -->
+            </div>
         </div>
 
-        <!-- ================= SECTION 3: COMMUNITY FEED ================= -->
-        <main class="feed-stream" id="communityFeedContainer">
-            <!-- Dynamically populated feed cards -->
-        </main>
+        <!-- ================= SCREEN 4: BUS VISION EXPLAINER ================= -->
+        <div id="screenBusVision" style="display:none;">
+            <div class="section-header">
+                <h2 class="section-heading-text">🚌 Moving Bus AI Telemetry Network</h2>
+                <button class="btn-secondary-action" onclick="navigateToScreen('home')">Back to Home</button>
+            </div>
+
+            <div class="hero-banner" style="margin-bottom:20px;">
+                <span class="hero-tag">Technology Overview</span>
+                <h2 class="hero-title">Continuous Inspection via Public Transport</h2>
+                <p class="hero-desc">
+                    Unlike conventional surveys requiring dedicated LiDAR/inspection trucks costing lakhs of rupees, 
+                    DRISHTI AI mounts low-cost Android phones behind the windshields of municipal transit buses. 
+                    As buses complete daily passenger routes, our lightweight vision engine scans road conditions with zero dedicated driver effort.
+                </p>
+            </div>
+
+            <div class="trust-grid" style="grid-template-columns:1fr; margin-bottom:24px;">
+                <div class="trust-card">
+                    <h4>Dual Sensor Fusion (Camera + Accelerometer)</h4>
+                    <p style="margin-top:4px;">
+                        Camera vision alone can mistake dark shadows, bitumen patches, and painted road lines for potholes. 
+                        DRISHTI fuses optical detection across 3 continuous frames with the device's Z-axis IMU vertical accelerometer shock (&ge; 1.25g).
+                        This eliminates 85% of false detections.
+                    </p>
+                </div>
+                <div class="trust-card">
+                    <h4>Multi-Bus Spatial Deduplication</h4>
+                    <p style="margin-top:4px;">
+                        When 5 buses pass the same pothole on Station Road, DRISHTI clusters sightings within 18m and road heading into a single Master Incident ID.
+                        Instead of spamming the PWD with 5 tickets, the municipal officer receives 1 verified ticket backed by 5 sighting timestamps.
+                    </p>
+                </div>
+            </div>
+        </div>
 
     </div>
 
-    <!-- ================= BOTTOM NAVIGATION ================= -->
-    <nav class="bottom-nav">
-        <a class="nav-item active" onclick="switchNavTab('home', this)">
-            <span class="nav-icon">🏠</span>
+    <!-- ================= MOBILE BOTTOM NAVIGATION ================= -->
+    <nav class="mobile-bottom-nav">
+        <a class="mob-nav-item active" onclick="navigateToScreen('home', this)">
+            <span class="mob-nav-icon">🏠</span>
             <span>Home</span>
         </a>
-        <a class="nav-item" onclick="switchNavTab('map', this)">
-            <span class="nav-icon">🗺️</span>
+        <a class="mob-nav-item" onclick="navigateToScreen('map', this)">
+            <span class="mob-nav-icon">🗺️</span>
             <span>Map</span>
         </a>
-        <div class="nav-report-wrapper">
-            <button class="nav-report-btn" onclick="openReportModal()" title="Report Civic Issue">
+        <div class="mob-report-wrap">
+            <button class="mob-report-btn" onclick="openReportWizard()" title="Report Civic Issue">
                 +
             </button>
         </div>
-        <a class="nav-item" onclick="switchNavTab('my_reports', this)">
-            <span class="nav-icon">📋</span>
+        <a class="mob-nav-item" onclick="navigateToScreen('my_reports', this)">
+            <span class="mob-nav-icon">📋</span>
             <span>My Reports</span>
         </a>
-        <a class="nav-item" onclick="switchNavTab('profile', this)">
-            <span class="nav-icon">👤</span>
-            <span>Profile</span>
+        <a class="mob-nav-item" onclick="navigateToScreen('bus_vision', this)">
+            <span class="mob-nav-icon">🚌</span>
+            <span>Bus Vision</span>
         </a>
     </nav>
 
-    <!-- ================= INCIDENT DETAILS MODAL ================= -->
-    <div class="modal-overlay" id="incidentDetailModal">
-        <div class="modal-sheet">
-            <button class="modal-close-btn" onclick="closeIncidentModal()">✕</button>
-            
-            <div class="modal-hero-img-wrap">
-                <img id="detailHeroImg" class="modal-hero-img" src="" alt="Incident Photo" />
+    <!-- ================= INCIDENT DETAILS MODAL (DEEP DIVE) ================= -->
+    <div class="modal-overlay-wrap" id="incidentModalOverlay">
+        <div class="modal-card-dialog">
+            <button class="btn-modal-dismiss" onclick="closeIncidentModal()">✕</button>
+
+            <!-- Large Hero Photo -->
+            <div class="modal-hero-image-box">
+                <img id="modalHeroImg" class="modal-hero-image" src="" alt="Incident Photo" />
             </div>
 
-            <div class="modal-body">
-                <!-- Top Header & Badges -->
-                <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 12px;">
+            <div class="modal-body-content">
+                <!-- Top Header & Status -->
+                <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
                     <div>
-                        <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--brand-cyan);" id="detailIncidentId">INC-GWL-2026-0842</div>
-                        <h2 style="font-size:18px; font-weight:800; color:#fff; margin-top:2px;" id="detailTitle">Road Surface Pothole</h2>
+                        <div style="font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; color:var(--navy-gov);" id="modalIncidentId">INC-GWL-2026-0842</div>
+                        <h2 style="font-size:19px; font-weight:800; color:var(--text-heading); margin-top:2px;" id="modalTitle">Road Surface Pothole (42cm)</h2>
                     </div>
-                    <span id="detailStatusBadge" class="badge-status">Status</span>
+                    <span id="modalStatusBadge" class="badge-status-pill">Status</span>
                 </div>
 
-                <!-- Bus USP Banner (Visible when detected by Bus Vision) -->
-                <div class="modal-bus-banner" id="detailBusBanner">
+                <!-- Bus Vision USP Banner -->
+                <div class="modal-bus-banner" id="modalBusBanner">
                     <div class="modal-bus-icon">🚌</div>
                     <div>
-                        <div class="modal-bus-title">Detected by DRISHTI Bus Vision (USP)</div>
-                        <div class="modal-bus-desc" id="detailBusDesc">Automatically captured by public transit fleet dashcam at 38 km/h. Multi-frame edge CV verified with coincident 1.48g vertical IMU shock.</div>
-                    </div>
-                </div>
-
-                <!-- 5-Step Status Timeline -->
-                <div class="timeline-container">
-                    <div class="timeline-title">Municipal Resolution Lifecycle</div>
-                    <div class="timeline-steps">
-                        <div class="timeline-step" id="stepDetected">
-                            <div class="step-circle">1</div>
-                            <div class="step-label">Detected</div>
-                        </div>
-                        <div class="timeline-step" id="stepVerified">
-                            <div class="step-circle">2</div>
-                            <div class="step-label">AI Verified</div>
-                        </div>
-                        <div class="timeline-step" id="stepDispatched">
-                            <div class="step-circle">3</div>
-                            <div class="step-label">Dispatched</div>
-                        </div>
-                        <div class="timeline-step" id="stepProgress">
-                            <div class="step-circle">4</div>
-                            <div class="step-label">In Progress</div>
-                        </div>
-                        <div class="timeline-step" id="stepFixed">
-                            <div class="step-circle">5</div>
-                            <div class="step-label">Verified Fixed</div>
+                        <div class="modal-bus-heading">Detected by Bus Vision (DRISHTI USP)</div>
+                        <div class="modal-bus-sub" id="modalBusDesc">
+                            Captured by Transit Fleet Bus 01 at 38 km/h. Multi-frame edge CV verified with 1.48g vertical IMU accelerometer shock.
                         </div>
                     </div>
                 </div>
 
-                <!-- Before / After Interactive Slider (When Fixed) -->
-                <div class="before-after-box" id="detailBeforeAfterBox" style="display:none;">
-                    <div class="before-after-header">
-                        <div class="before-after-title">✅ Completed Repair & AI Verification</div>
-                        <span style="font-size:11px; color:#94a3b8;">Drag handle to compare</span>
-                    </div>
-                    <div class="split-slider-container" id="splitSliderWrap">
-                        <span class="split-badge-before">Before Damage</span>
-                        <span class="split-badge-after">After Repair</span>
-                        <img id="splitAfterImg" class="split-slider-img" src="" alt="After Repair" />
-                        <div class="split-slider-before" id="splitBeforeClip">
-                            <img id="splitBeforeImg" src="" alt="Before Repair" />
+                <!-- 7-Step Municipal Lifecycle Timeline -->
+                <div class="timeline-box">
+                    <div class="timeline-label-head">Municipal Resolution Lifecycle (7 Steps)</div>
+                    <div class="stepper-track">
+                        <div class="stepper-step completed" id="step1_detected">
+                            <div class="stepper-dot">1</div>
+                            <div class="stepper-text">Detected</div>
                         </div>
-                        <div class="split-slider-handle" id="splitSliderHandle">↔</div>
-                    </div>
-                    <div style="font-size:12px; color:#cbd5e1; margin-top:10px; line-height:1.4;" id="detailRepairNotes">
-                        Surface restored flush to grade. Defect crater sealed with 0mm residual depth. AI visual texture continuity confirmed.
-                    </div>
-                </div>
-
-                <!-- Key Details Grid -->
-                <div class="details-grid">
-                    <div class="detail-item">
-                        <div class="detail-label">Exact Location</div>
-                        <div class="detail-val" id="detailLocationText">Station Road, Ward 34</div>
-                        <a id="detailMapsLink" href="#" target="_blank" style="font-size:11px; color:var(--brand-cyan); text-decoration:none;">Open in Google Maps ↗</a>
-                    </div>
-                    <div class="detail-item">
-                        <div class="detail-label">Detection Source</div>
-                        <div class="detail-val" id="detailSourceText">DRISHTI Bus Vision</div>
-                    </div>
-                    <div class="detail-item">
-                        <div class="detail-label">AI Confidence</div>
-                        <div class="detail-val" id="detailConfidenceText">94.2% (Multi-Frame CV)</div>
-                    </div>
-                    <div class="detail-item">
-                        <div class="detail-label">Independent Sightings</div>
-                        <div class="detail-val" id="detailSightingsText">4 Sightings across 3 Buses</div>
-                    </div>
-                    <div class="detail-item">
-                        <div class="detail-label">Assigned Department</div>
-                        <div class="detail-val" id="detailDeptText">PWD Road Division (Ward 34)</div>
-                    </div>
-                    <div class="detail-item">
-                        <div class="detail-label">Reported Timestamp</div>
-                        <div class="detail-val" id="detailTimeText">2026-09-20 10:36 IST</div>
+                        <div class="stepper-step completed" id="step2_verified">
+                            <div class="stepper-dot">2</div>
+                            <div class="stepper-text">AI Verified</div>
+                        </div>
+                        <div class="stepper-step" id="step3_assigned">
+                            <div class="stepper-dot">3</div>
+                            <div class="stepper-text">Assigned</div>
+                        </div>
+                        <div class="stepper-step" id="step4_progress">
+                            <div class="stepper-dot">4</div>
+                            <div class="stepper-text">In Progress</div>
+                        </div>
+                        <div class="stepper-step" id="step5_submitted">
+                            <div class="stepper-dot">5</div>
+                            <div class="stepper-text">Repair Proof</div>
+                        </div>
+                        <div class="stepper-step" id="step6_audit">
+                            <div class="stepper-dot">6</div>
+                            <div class="stepper-text">Verified</div>
+                        </div>
+                        <div class="stepper-step" id="step7_closed">
+                            <div class="stepper-dot">7</div>
+                            <div class="stepper-text">Closed</div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Community Discussion & Voice -->
-                <div class="comments-section">
-                    <div class="comments-title">💬 Resident Community Discussion (<span id="detailCommentsCount">0</span>)</div>
-                    <div class="comments-list" id="detailCommentsList"></div>
-                    <div class="comment-input-row">
-                        <input type="text" class="comment-input" id="detailCommentInput" placeholder="Add resident remark or question..." />
-                        <button class="btn-comment-submit" onclick="submitDetailComment()">Post</button>
+                <!-- Before / After Repair Comparison Slider (Visible when Fixed) -->
+                <div class="repair-verification-box" id="modalRepairBox" style="display:none;">
+                    <div class="repair-head-title">
+                        <span>✅ Completed Repair: Before vs After</span>
+                        <span style="font-size:11px; font-weight:600; color:#15803d;">Drag slider handle to compare</span>
+                    </div>
+                    
+                    <div class="split-compare-view" id="splitSliderBox">
+                        <img id="splitImgAfter" class="split-img-base" src="" alt="After Repair" />
+                        <div class="split-clip-layer" id="splitClipLayer">
+                            <img id="splitImgBefore" src="" alt="Before Repair" />
+                        </div>
+                        <div class="split-drag-pin" id="splitDragPin">↔</div>
+                    </div>
+                    <p style="font-size:12px; color:var(--text-body); margin-top:10px; line-height:1.4;" id="modalRepairNotes">
+                        Surface restored flush with grade. Bituminous concrete patch completed. Defect crater sealed with 0mm residual depth.
+                    </p>
+                </div>
+
+                <!-- Specifications & Telemetry Grid -->
+                <div class="incident-specs-grid">
+                    <div class="spec-box">
+                        <div class="spec-label">Exact Location</div>
+                        <div class="spec-val" id="modalLocationText">Station Road, Ward 34</div>
+                        <a id="modalMapsLink" href="#" target="_blank" style="font-size:11px; color:var(--saffron-primary); text-decoration:none;">Open in Google Maps ↗</a>
+                    </div>
+                    <div class="spec-box">
+                        <div class="spec-label">Detection Source</div>
+                        <div class="spec-val" id="modalSourceText">Bus Vision (BUS-01)</div>
+                    </div>
+                    <div class="spec-box">
+                        <div class="spec-label">AI Confidence</div>
+                        <div class="spec-val" id="modalConfidenceText">94.2% (Multi-Frame CV)</div>
+                    </div>
+                    <div class="spec-box">
+                        <div class="spec-label">Independent Sightings</div>
+                        <div class="spec-val" id="modalSightingsText">4 sightings across 3 buses</div>
+                    </div>
+                    <div class="spec-box">
+                        <div class="spec-label">Assigned Department</div>
+                        <div class="spec-val" id="modalDeptText">PWD Road Division</div>
+                    </div>
+                    <div class="spec-box">
+                        <div class="spec-label">Reported Timestamp</div>
+                        <div class="spec-val" id="modalTimeText">2026-09-20 10:36 IST</div>
+                    </div>
+                </div>
+
+                <!-- Resident Comments & Community Discussion -->
+                <div class="discussion-block">
+                    <h4 style="font-size:13px; font-weight:700; color:var(--text-heading); margin-bottom:10px;">
+                        💬 Resident Community Discussion (<span id="modalCommentsCount">0</span>)
+                    </h4>
+                    <div id="modalCommentsList"></div>
+                    <div style="display:flex; gap:8px; margin-top:10px;">
+                        <input type="text" class="input-control" id="modalCommentInput" placeholder="Add verified remark or question..." style="margin-bottom:0;" />
+                        <button class="btn-primary-action" onclick="submitModalComment()" style="padding:8px 14px; font-size:12px; flex-shrink:0;">Post</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- ================= REPORT ISSUE DRAWER ================= -->
-    <div class="modal-overlay" id="reportIssueModal">
-        <div class="modal-sheet" style="max-width: 520px;">
-            <button class="modal-close-btn" onclick="closeReportModal()">✕</button>
-            <div class="modal-body">
-                <h2 style="font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 4px;">📢 Report a Road Defect</h2>
-                <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 16px;">DRISHTI AI will analyze the photo, estimate severity, and route to the local ward authority.</p>
+    <!-- ================= REPORT ISSUE WIZARD (STEP-BY-STEP MODAL) ================= -->
+    <div class="modal-overlay-wrap" id="reportWizardOverlay">
+        <div class="report-wizard-dialog">
+            <button class="btn-modal-dismiss" onclick="closeReportWizard()">✕</button>
 
-                <form class="report-form" onsubmit="handleReportSubmit(event)">
-                    <!-- Photo Picker -->
-                    <div class="form-group">
-                        <label class="form-label">Road Defect Photograph *</label>
-                        <div class="photo-picker-box" onclick="triggerPhotoSelect()">
-                            <input type="file" id="reportFileInput" accept="image/*" style="display:none;" onchange="onPhotoSelected(event)" />
-                            <div id="photoPlaceholder">
-                                <div style="font-size: 28px; margin-bottom: 6px;">📸</div>
-                                <div style="font-size: 13px; font-weight: 700; color: #fff;">Tap to take photo or upload</div>
-                                <div style="font-size: 11px; color: var(--text-secondary); margin-top: 4px;">Or tap below to use a verified sample photo</div>
-                            </div>
-                            <img id="photoPreviewImg" class="photo-picker-preview" alt="Preview" />
-                        </div>
-                        <button type="button" class="voice-dictate-btn" onclick="useSamplePhoto()" style="margin-top:6px;">
-                            🖼️ Use Pothole Sample Photo
-                        </button>
+            <!-- Wizard Progress Indicator -->
+            <div class="wizard-steps-indicator">
+                <span class="wizard-step-node active-step" id="wizDot1">1. Photo</span>
+                <span>➔</span>
+                <span class="wizard-step-node" id="wizDot2">2. Location</span>
+                <span>➔</span>
+                <span class="wizard-step-node" id="wizDot3">3. Category</span>
+                <span>➔</span>
+                <span class="wizard-step-node" id="wizDot4">4. Submit</span>
+            </div>
+
+            <h2 style="font-size:18px; font-weight:800; color:var(--text-heading); margin-bottom:4px;">Report Civic Hazard</h2>
+            <p style="font-size:12.5px; color:var(--text-secondary); margin-bottom:16px;">DRISHTI AI will extract coordinates, assess severity, and assign to the local ward authority.</p>
+
+            <form id="civicReportForm" onsubmit="handleWizardSubmit(event)">
+                <!-- Step 1: Photo Upload / Demo Photo -->
+                <div class="upload-dropzone" onclick="triggerPhotoUpload()">
+                    <input type="file" id="wizardFileInput" accept="image/*" style="display:none;" onchange="onWizardPhotoPicked(event)" />
+                    <div id="dropzoneText">
+                        <div style="font-size:30px; margin-bottom:4px;">📸</div>
+                        <strong style="color:var(--text-heading); font-size:13.5px;">Tap to Take Photo or Upload</strong>
+                        <div style="font-size:11.5px; color:var(--text-secondary); margin-top:4px;">High clarity helps AI estimate crater depth</div>
                     </div>
+                    <img id="wizardPreviewImg" class="upload-preview-box" alt="Preview" />
+                </div>
+                <button type="button" class="btn-secondary-action" onclick="useDemoPotholePhoto()" style="width:100%; justify-content:center; margin-bottom:14px; font-size:12.5px;">
+                    🖼️ Use Verified Pothole Sample Photo
+                </button>
 
-                    <!-- Defect Category -->
-                    <div class="form-group">
-                        <label class="form-label">Hazard Category *</label>
-                        <select class="form-select" id="reportCategory">
-                            <option value="pothole">Road Surface Pothole</option>
-                            <option value="broken_streetlight">Broken Streetlight / Dark Blackspot</option>
-                            <option value="waterlogging">Hazardous Waterlogging & Trench</option>
-                            <option value="destructed_border">Broken Guardrail / Destructed Divider</option>
-                            <option value="garbage_overflow">Solid Waste Spillage</option>
-                        </select>
-                    </div>
+                <!-- Step 2: Category & Description -->
+                <label style="font-size:11.5px; font-weight:700; color:var(--text-secondary); display:block; margin-bottom:4px;">Hazard Category *</label>
+                <select class="input-control" id="wizardCategory">
+                    <option value="pothole">🕳️ Road Surface Pothole</option>
+                    <option value="broken_streetlight">💡 Broken Streetlight / Dark Blackspot</option>
+                    <option value="waterlogging">🌊 Hazardous Waterlogging & Open Culvert</option>
+                    <option value="destructed_border">🚧 Broken Guardrail / Damaged Divider</option>
+                    <option value="garbage_overflow">🗑️ Solid Waste Spillage</option>
+                    <option value="illegal_banner">🚩 Illegal Banner / Hoarding</option>
+                    <option value="stray_animal">🐄 Stray Animal Traffic Hazard</option>
+                </select>
 
-                    <!-- Description & Voice Dictation -->
-                    <div class="form-group">
-                        <div style="display:flex; justify-content:space-between; align-items:center;">
-                            <label class="form-label">Description / Remarks</label>
-                            <button type="button" class="voice-dictate-btn" onclick="startVoiceDictation()">
-                                🎙️ <span id="voiceBtnText">Speak (Hindi/Eng)</span>
-                            </button>
-                        </div>
-                        <textarea class="form-textarea" id="reportDescription" rows="3" placeholder="Describe the road hazard, depth, or danger to traffic..."></textarea>
-                    </div>
-
-                    <!-- Location -->
-                    <div class="form-group">
-                        <label class="form-label">Location (Auto-Geotagged)</label>
-                        <input type="text" class="form-input" id="reportLocationInput" value="Station Road, Ward 34, Gwalior" />
-                    </div>
-
-                    <!-- Privacy Notice (DPDP Act 2023) -->
-                    <div class="privacy-box">
-                        <input type="checkbox" id="reportAnonymous" checked style="margin-top:2px;" />
-                        <div>
-                            <strong style="color:#fff;">Submit as Anonymous Resident 🥷</strong><br>
-                            Under DPDP Act 2023, pedestrian faces and vehicle license plates are automatically blurred before publishing.
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn-report-primary" style="width:100%; justify-content:center; margin-top:6px;" id="submitReportBtn">
-                        Submit Civic Grievance ➔
+                <!-- Description & Optional Voice Dictation -->
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                    <label style="font-size:11.5px; font-weight:700; color:var(--text-secondary);">Description</label>
+                    <button type="button" onclick="startVoiceInput()" style="background:none; border:none; color:var(--saffron-primary); font-size:11.5px; font-weight:700; cursor:pointer;">
+                        🎙️ <span id="voiceStatus">Speak (Hindi/Eng)</span>
                     </button>
-                </form>
-            </div>
+                </div>
+                <textarea class="input-control" id="wizardDesc" rows="2" placeholder="Briefly describe the danger, depth, or location landmarks..."></textarea>
+
+                <!-- Step 3: Location -->
+                <label style="font-size:11.5px; font-weight:700; color:var(--text-secondary); display:block; margin-bottom:4px;">Location / Ward Landmark</label>
+                <input type="text" class="input-control" id="wizardLocationInput" value="Station Road, Ward 34, Maharaj Bada, Gwalior" />
+
+                <!-- Step 4: Privacy & Anonymous Protection -->
+                <div style="background:var(--bg-subtle); border:1px solid var(--border-light); border-radius:var(--radius-sm); padding:10px 12px; margin-bottom:16px; font-size:11.5px; color:var(--text-secondary); display:flex; gap:8px;">
+                    <input type="checkbox" id="wizardAnonymous" checked style="margin-top:2px;" />
+                    <div>
+                        <strong style="color:var(--text-heading);">Submit Anonymously 🥷</strong><br>
+                        Protected under DPDP Act 2023. Pedestrian faces and vehicle license plates are automatically blurred.
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary-action" id="wizardSubmitBtn" style="width:100%; justify-content:center;">
+                    Submit Grievance to Municipal PWD ➔
+                </button>
+            </form>
         </div>
     </div>
 
-    <!-- Toast Notification -->
-    <div class="toast-msg" id="appToast">Notification Message</div>
+    <!-- Toast Banner -->
+    <div class="toast-banner" id="toastBox">Notification Message</div>
 
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
     <script>
-        // ================= DATA STORE (SIH26124 REALISTIC INCIDENTS) =================
-        const DEFAULT_INCIDENTS = [
+        // ================= SIH26124 REALISTIC INCIDENTS DATA =================
+        const INITIAL_INCIDENTS = [
             {
                 id: "INC-GWL-2026-0842",
                 title: "Road Surface Pothole (42cm)",
                 category: "pothole",
-                category_label: "Road Pothole",
+                category_label: "Pothole",
                 severity: "Critical",
-                status: "FIXED", // FIXED, IN_PROGRESS, PENDING
+                severity_color: "pill-critical",
+                status: "FIXED",
                 status_label: "🟢 Verified Fixed",
-                source: "BUS",   // BUS or CITIZEN (USP Highlight)
-                source_label: "🚌 Detected by DRISHTI Bus Vision",
+                source: "BUS",
+                source_label: "Detected by Bus Vision",
                 bus_id: "BUS-01 (TATA Starbus EV - Route 1)",
                 bus_speed: "38 km/h",
                 location_name: "Station Road, Ward 34, Maharaj Bada",
@@ -1457,7 +1864,7 @@
                 reported_time: "2 hours ago",
                 timestamp: "2026-09-20 10:36:55 IST",
                 ai_confidence: "94.2%",
-                sensor_fusion: "Camera CV + 1.48g IMU Vertical Shock",
+                sensor_fusion: "Camera Vision + 1.48g IMU Shock",
                 sightings_count: 4,
                 sightings_text: "4 sightings across 3 transit buses (BUS-01, BUS-04, BUS-08) + 1 citizen",
                 department: "Gwalior Municipal Corp / PWD Road Division",
@@ -1466,10 +1873,10 @@
                 desc: "Severe asphalt crater measuring ~42cm in width. Causes abrupt two-wheeler swerving near railway station approach.",
                 img_before: "./uploads/live_pothole_1789880936.jpg",
                 img_after: "./assets/sample_repaired_road.jpg",
-                repair_notes: "Surface restored flush with road grade. Mastic asphalt patch completed by NCC Urban Infra. Defect crater sealed with 0mm residual depth.",
+                repair_notes: "Bituminous mastic asphalt layer verified flush with road grade by DRISHTI visual audit. Defect crater sealed with 0mm residual depth.",
                 comments: [
                     { author: "Transit Safety Telemetry", text: "Registered vertical shock bump of 1.48G by bus axle IMU.", is_official: true },
-                    { author: "Rahul Sharma (Ward Resident)", text: "Very happy to see this fixed in under 24 hours. Excellent work!", is_official: false }
+                    { author: "Rahul Sharma (Ward Resident)", text: "Fixed in under 24 hours. Excellent work by PWD!", is_official: false }
                 ]
             },
             {
@@ -1478,10 +1885,11 @@
                 category: "waterlogging",
                 category_label: "Waterlogging",
                 severity: "Critical",
+                severity_color: "pill-critical",
                 status: "PENDING",
                 status_label: "🔴 Pending Action",
                 source: "BUS",
-                source_label: "🚌 Detected by DRISHTI Bus Vision",
+                source_label: "Detected by Bus Vision",
                 bus_id: "BUS-08 (Eicher Skyline - Route 4)",
                 bus_speed: "32 km/h",
                 location_name: "City Center Commercial Spine",
@@ -1491,7 +1899,7 @@
                 reported_time: "35 mins ago",
                 timestamp: "2026-09-22 09:15:00 IST",
                 ai_confidence: "92.0%",
-                sensor_fusion: "Dual Camera Multi-Frame Verification",
+                sensor_fusion: "Camera Vision Multi-Frame",
                 sightings_count: 5,
                 sightings_text: "5 sightings across 2 buses + 3 citizen reports",
                 department: "Gwalior Municipal Corp / PWD Drainage Cell",
@@ -1502,7 +1910,7 @@
                 img_after: null,
                 repair_notes: null,
                 comments: [
-                    { author: "Traffic Marshal", text: "Single lane passage active. Pumping team requested urgently.", is_official: true }
+                    { author: "Traffic Police Ward 19", text: "Warning cones deployed. Pumping squad requested.", is_official: true }
                 ]
             },
             {
@@ -1510,11 +1918,12 @@
                 title: "Broken Streetlight (Dark Blackspot)",
                 category: "broken_streetlight",
                 category_label: "Streetlight",
-                severity: "High",
+                severity: "Moderate",
+                severity_color: "pill-progress",
                 status: "IN_PROGRESS",
                 status_label: "🟠 Crew Dispatched",
                 source: "CITIZEN",
-                source_label: "👤 Reported by Citizen",
+                source_label: "Citizen Report",
                 bus_id: null,
                 bus_speed: null,
                 location_name: "Kampoo Lashkar Main Road",
@@ -1535,20 +1944,21 @@
                 img_after: null,
                 repair_notes: null,
                 comments: [
-                    { author: "Sunita Verma", text: "Very dangerous for women and cyclists at night.", is_official: false },
-                    { author: "Electrical AMC Squad", text: "Work ticket assigned. Replacement LED fixture arriving today.", is_official: true }
+                    { author: "Sunita Verma", text: "Dangerous for two-wheelers and pedestrians.", is_official: false },
+                    { author: "Electrical AMC Squad", text: "Replacement LED luminaire scheduled for today.", is_official: true }
                 ]
             },
             {
                 id: "INC-GWL-2026-0843",
                 title: "Road Surface Pothole Crater",
                 category: "pothole",
-                category_label: "Road Pothole",
+                category_label: "Pothole",
                 severity: "Moderate",
+                severity_color: "pill-fixed",
                 status: "FIXED",
                 status_label: "🟢 Verified Fixed",
                 source: "BUS",
-                source_label: "🚌 Detected by DRISHTI Bus Vision",
+                source_label: "Detected by Bus Vision",
                 bus_id: "BUS-04 (Ashok Leyland CNG)",
                 bus_speed: "41 km/h",
                 location_name: "City Arterial Corridor",
@@ -1567,103 +1977,121 @@
                 desc: "Surface depression with loose aggregate. Repaired by municipal rapid response team.",
                 img_before: "./uploads/live_pothole_1789880942.jpg",
                 img_after: "./assets/sample_repaired_road.jpg",
-                repair_notes: "Bituminous mastic asphalt layer verified flush with road grade. Quality clearance approved.",
+                repair_notes: "Bituminous mastic asphalt layer verified flush with road grade.",
                 comments: [
                     { author: "PWD Maintenance", text: "Patch completed flush with grade.", is_official: true }
                 ]
             }
         ];
 
-        let incidents = [];
-        let currentFilter = 'all';
+        let civicIncidents = [];
+        let activeFeedFilter = 'all';
         let currentLang = 'EN';
-        let mapInstance = null;
-        let mapMarkers = [];
-        let activeIncident = null;
+        let leafletNearbyMap = null;
+        let leafletFullScreenMap = null;
+        let mapMarkersList = [];
+        let currentlyViewingIncident = null;
 
-        // Initialize App
+        // Startup
         document.addEventListener("DOMContentLoaded", () => {
-            loadStoredIncidents();
-            initNearbyMap();
-            renderNearbyCards();
-            renderCommunityFeed();
-            initSplitSliderEvents();
+            initDataStore();
+            initLeafletNearbyMap();
+            renderNearbyPreviewCards();
+            renderCommunityCivicFeed();
+            initSplitSliderInteractivity();
         });
 
-        function loadStoredIncidents() {
+        function initDataStore() {
             try {
-                const stored = localStorage.getItem("drishti_citizen_incidents");
-                if (stored) {
-                    incidents = JSON.parse(stored);
+                const saved = localStorage.getItem("drishti_civic_data_v3");
+                if (saved) {
+                    civicIncidents = JSON.parse(saved);
                 } else {
-                    incidents = JSON.parse(JSON.stringify(DEFAULT_INCIDENTS));
-                    saveIncidents();
+                    civicIncidents = JSON.parse(JSON.stringify(INITIAL_INCIDENTS));
+                    saveDataStore();
                 }
             } catch (e) {
-                incidents = JSON.parse(JSON.stringify(DEFAULT_INCIDENTS));
+                civicIncidents = JSON.parse(JSON.stringify(INITIAL_INCIDENTS));
             }
         }
 
-        function saveIncidents() {
+        function saveDataStore() {
             try {
-                localStorage.setItem("drishti_citizen_incidents", JSON.stringify(incidents));
+                localStorage.setItem("drishti_civic_data_v3", JSON.stringify(civicIncidents));
             } catch (e) {}
         }
 
-        // ================= LEAFLET NEARBY MAP =================
-        function initNearbyMap() {
-            const mapContainer = document.getElementById("nearbyMap");
-            if (!mapContainer) return;
+        // ================= NEARBY MAP (LEAFLET) =================
+        function initLeafletNearbyMap() {
+            const mapEl = document.getElementById("nearbyInteractiveMap");
+            if (!mapEl) return;
 
-            // Centered at Gwalior Ward 34
-            mapInstance = L.map('nearbyMap', {
+            leafletNearbyMap = L.map('nearbyInteractiveMap', {
                 zoomControl: false,
                 attributionControl: false
             }).setView([26.218342, 78.182810], 14);
 
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
                 maxZoom: 19
-            }).addTo(mapInstance);
+            }).addTo(leafletNearbyMap);
 
-            // Add pins
-            renderMapPins();
+            plotMapMarkers(leafletNearbyMap);
         }
 
-        function renderMapPins() {
-            if (!mapInstance) return;
-            mapMarkers.forEach(m => mapInstance.removeLayer(m));
-            mapMarkers = [];
+        function plotMapMarkers(targetMap, categoryFilter = 'all') {
+            if (!targetMap) return;
 
-            incidents.forEach(item => {
-                let color = item.status === 'FIXED' ? '#10b981' : (item.status === 'IN_PROGRESS' ? '#f59e0b' : '#ef4444');
-                let iconHtml = `
-                    <div style="background:${color}; width:16px; height:16px; border-radius:50%; border:2px solid #fff; box-shadow:0 0 10px ${color};"></div>
+            mapMarkersList.forEach(m => targetMap.removeLayer(m));
+            mapMarkersList = [];
+
+            civicIncidents.forEach(item => {
+                if (categoryFilter !== 'all' && item.category !== categoryFilter) return;
+
+                let pinColor = item.status === 'FIXED' ? '#16a34a' : (item.status === 'IN_PROGRESS' ? '#d97706' : '#dc2626');
+                let pinIconHtml = `
+                    <div style="background:${pinColor}; width:16px; height:16px; border-radius:50%; border:2.5px solid #ffffff; box-shadow:0 2px 6px rgba(0,0,0,0.3);"></div>
                 `;
-                let customIcon = L.divIcon({
-                    html: iconHtml,
-                    className: 'custom-map-pin',
+                let iconObj = L.divIcon({
+                    html: pinIconHtml,
+                    className: 'map-custom-dot',
                     iconSize: [16, 16],
                     iconAnchor: [8, 8]
                 });
 
-                let marker = L.marker(item.coords, { icon: customIcon }).addTo(mapInstance);
-                marker.on('click', () => openIncidentDetails(item.id));
-                mapMarkers.push(marker);
+                let marker = L.marker(item.coords, { icon: iconObj }).addTo(targetMap);
+                marker.bindPopup(`
+                    <div style="font-family:'Plus Jakarta Sans',sans-serif; padding:4px;">
+                        <strong style="font-size:12px; color:#0f172a;">${item.title}</strong><br>
+                        <span style="font-size:10.5px; color:#64748b;">📍 ${item.location_name}</span><br>
+                        <span style="font-size:10.5px; font-weight:700; color:${pinColor};">${item.status_label}</span>
+                    </div>
+                `);
+                marker.on('click', () => {
+                    openIncidentDeepDive(item.id);
+                });
+                mapMarkersList.push(marker);
             });
         }
 
+        function filterMapCategory(cat, chip) {
+            document.querySelectorAll(".map-cat-chip").forEach(c => c.classList.remove("active"));
+            if (chip) chip.classList.add("active");
+            if (leafletNearbyMap) plotMapMarkers(leafletNearbyMap, cat);
+            if (leafletFullScreenMap) plotMapMarkers(leafletFullScreenMap, cat);
+        }
+
         // ================= NEARBY CARDS =================
-        function renderNearbyCards() {
-            const strip = document.getElementById("nearbyStripContainer");
+        function renderNearbyPreviewCards() {
+            const strip = document.getElementById("nearbyCardsStrip");
             if (!strip) return;
 
-            strip.innerHTML = incidents.slice(0, 4).map(item => `
-                <div class="nearby-card" onclick="openIncidentDetails('${item.id}')">
-                    <img src="${item.img_before}" class="nearby-thumb" alt="${item.title}" onerror="this.src='./assets/sample_pothole.jpg'" />
-                    <div class="nearby-info">
-                        <div class="nearby-title">${item.title}</div>
-                        <div class="nearby-dist">📍 ${item.distance}</div>
-                        <div style="font-size:10.5px; font-weight:700; color:${item.status === 'FIXED' ? '#10b981' : (item.status === 'IN_PROGRESS' ? '#f59e0b' : '#ef4444')}; margin-top:2px;">
+            strip.innerHTML = civicIncidents.slice(0, 4).map(item => `
+                <div class="nearby-item-card" onclick="openIncidentDeepDive('${item.id}')">
+                    <img src="${item.img_before}" class="nearby-item-thumb" alt="${item.title}" onerror="this.src='./assets/sample_pothole.jpg'" />
+                    <div class="nearby-item-details">
+                        <div class="nearby-item-title">${item.title}</div>
+                        <div class="nearby-item-location">📍 ${item.distance}</div>
+                        <div style="font-size:10.5px; font-weight:700; color:${item.status === 'FIXED' ? '#16a34a' : (item.status === 'IN_PROGRESS' ? '#d97706' : '#dc2626')};">
                             ${item.status === 'FIXED' ? '🟢 Fixed' : (item.status === 'IN_PROGRESS' ? '🟠 In Progress' : '🔴 Critical')}
                         </div>
                     </div>
@@ -1672,73 +2100,74 @@
         }
 
         // ================= COMMUNITY FEED =================
-        function renderCommunityFeed() {
-            const container = document.getElementById("communityFeedContainer");
-            if (!container) return;
+        function renderCommunityCivicFeed() {
+            const feedContainer = document.getElementById("communityFeedList");
+            if (!feedContainer) return;
 
-            let filtered = incidents;
-            if (currentFilter === 'bus') {
-                filtered = incidents.filter(i => i.source === 'BUS');
-            } else if (currentFilter === 'pending') {
-                filtered = incidents.filter(i => i.status === 'PENDING');
-            } else if (currentFilter === 'in_progress') {
-                filtered = incidents.filter(i => i.status === 'IN_PROGRESS');
-            } else if (currentFilter === 'fixed') {
-                filtered = incidents.filter(i => i.status === 'FIXED');
+            let filtered = civicIncidents;
+            if (activeFeedFilter === 'bus') {
+                filtered = civicIncidents.filter(i => i.source === 'BUS');
+            } else if (activeFeedFilter === 'pending') {
+                filtered = civicIncidents.filter(i => i.status === 'PENDING');
+            } else if (activeFeedFilter === 'progress') {
+                filtered = civicIncidents.filter(i => i.status === 'IN_PROGRESS');
+            } else if (activeFeedFilter === 'fixed') {
+                filtered = civicIncidents.filter(i => i.status === 'FIXED');
             }
 
             if (filtered.length === 0) {
-                container.innerHTML = `
-                    <div style="text-align:center; padding:50px 20px; color:var(--text-secondary); background:var(--bg-card); border-radius:16px;">
-                        <div style="font-size:32px; margin-bottom:8px;">🕊️</div>
-                        <strong style="color:#fff;">No issues found in this category</strong>
-                        <p style="font-size:13px; margin-top:4px;">Everything looks smooth here!</p>
+                feedContainer.innerHTML = `
+                    <div style="background:#fff; border:1px solid var(--border-light); border-radius:var(--radius-lg); padding:40px 20px; text-align:center;">
+                        <div style="font-size:28px; margin-bottom:6px;">🕊️</div>
+                        <strong style="color:var(--text-heading); font-size:14px;">No issues found in this category</strong>
+                        <p style="font-size:12.5px; color:var(--text-secondary); margin-top:4px;">Everything looks smooth here!</p>
                     </div>
                 `;
                 return;
             }
 
-            container.innerHTML = filtered.map(item => {
-                const statusClass = item.status === 'FIXED' ? 'status-fixed' : (item.status === 'IN_PROGRESS' ? 'status-progress' : 'status-critical');
+            feedContainer.innerHTML = filtered.map(item => {
                 const isBus = item.source === 'BUS';
+                const statusPillClass = item.status === 'FIXED' ? 'pill-fixed' : (item.status === 'IN_PROGRESS' ? 'pill-progress' : 'pill-critical');
 
                 return `
-                    <article class="feed-card" onclick="openIncidentDetails('${item.id}')">
-                        <div class="feed-media-wrap">
-                            <img class="feed-media-img" src="${item.img_before}" alt="${item.title}" onerror="this.src='./assets/sample_pothole.jpg'" />
-                            ${isBus ? `<span class="badge-bus-usp">🚌 Detected by DRISHTI Bus Vision</span>` : ''}
-                            <span class="badge-status ${statusClass}">${item.status_label}</span>
+                    <article class="civic-issue-card" onclick="openIncidentDeepDive('${item.id}')">
+                        <div class="card-media-box">
+                            <img class="card-media-img" src="${item.img_before}" alt="${item.title}" onerror="this.src='./assets/sample_pothole.jpg'" />
+                            ${isBus ? `<span class="badge-bus-vision">🚌 Detected by Bus Vision</span>` : ''}
+                            <span class="badge-status-pill ${statusPillClass}">${item.status_label}</span>
                         </div>
 
-                        <div class="feed-body">
-                            <div class="feed-meta-row">
-                                <span class="feed-location">📍 ${item.location_name}</span>
+                        <div class="card-content-body">
+                            <div class="card-header-meta">
+                                <span class="card-loc-text">📍 ${item.location_name}</span>
                                 <span>${item.reported_time}</span>
                             </div>
 
-                            <h3 class="feed-title">${item.title}</h3>
-                            <p class="feed-desc">${item.desc}</p>
+                            <h3 class="card-title-text">${item.title}</h3>
+                            <p class="card-desc-text">${item.desc}</p>
 
-                            <div class="feed-tags-row">
-                                <span class="tag-pill tag-ai-verified">✓ AI-Verified (${item.ai_confidence})</span>
-                                <span class="tag-pill">👁️ ${item.sightings_count} Sighting(s)</span>
-                                <span class="tag-pill">🏛️ ${item.ward}</span>
+                            <div class="card-pills-row">
+                                <span class="chip-meta chip-ai-verified">✓ AI Verified (${item.ai_confidence})</span>
+                                <span class="chip-meta">👁️ ${item.sightings_count} Sighting(s)</span>
+                                <span class="chip-meta chip-dept">${item.department.split('/')[1] || item.department}</span>
                             </div>
 
-                            <div class="feed-action-bar" onclick="event.stopPropagation()">
-                                <div class="action-group">
-                                    <button class="action-btn ${item.endorsed ? 'endorsed' : ''}" onclick="toggleEndorse('${item.id}', this)">
-                                        🗳️ Affects Me Too (<span class="endorse-count">${item.affected_count}</span>)
+                            <div class="card-action-bar" onclick="event.stopPropagation()">
+                                <div class="action-button-set">
+                                    <button class="civic-btn-action ${item.endorsed ? 'active-endorsed' : ''}" onclick="toggleAffectsMe('${item.id}', this)">
+                                        🗳️ Affects Me Too (<span class="affects-count">${item.affected_count}</span>)
                                     </button>
-                                    <button class="action-btn" onclick="openIncidentDetails('${item.id}')">
+                                    <button class="civic-btn-action" onclick="openIncidentDeepDive('${item.id}')">
                                         💬 Comments (${item.comments.length})
                                     </button>
-                                    <button class="action-btn" onclick="shareIncident('${item.id}')">
+                                    <button class="civic-btn-action" onclick="shareCivicIssue('${item.id}')">
                                         ↗️ Share
                                     </button>
                                 </div>
-                                <a class="btn-view-details" onclick="openIncidentDetails('${item.id}')">
-                                    Details & Proof ➔
+
+                                <a class="btn-card-details" onclick="openIncidentDeepDive('${item.id}')">
+                                    View Details ➔
                                 </a>
                             </div>
                         </div>
@@ -1748,29 +2177,29 @@
         }
 
         function applyFeedFilter(filter, btn) {
-            currentFilter = filter;
-            document.querySelectorAll(".filter-chip").forEach(c => c.classList.remove("active"));
+            activeFeedFilter = filter;
+            document.querySelectorAll(".feed-filter-btn").forEach(b => b.classList.remove("active"));
             if (btn) btn.classList.add("active");
-            renderCommunityFeed();
+            renderCommunityCivicFeed();
         }
 
-        // ================= ENDORSE / UPVOTE =================
-        function toggleEndorse(id, btn) {
-            const item = incidents.find(i => i.id === id);
+        // ================= ENDORSE / SHARE =================
+        function toggleAffectsMe(id, btn) {
+            const item = civicIncidents.find(i => i.id === id);
             if (!item) return;
 
             item.endorsed = !item.endorsed;
             item.affected_count += item.endorsed ? 1 : -1;
-            saveIncidents();
+            saveDataStore();
 
-            btn.classList.toggle("endorsed", item.endorsed);
-            const countSpan = btn.querySelector(".endorse-count");
+            btn.classList.toggle("active-endorsed", item.endorsed);
+            const countSpan = btn.querySelector(".affects-count");
             if (countSpan) countSpan.textContent = item.affected_count;
 
-            showToast(item.endorsed ? "🗳️ Added to citizen priority! Escalated to Municipal Ward Engineer." : "Removed endorsement.");
+            triggerToast(item.endorsed ? "🗳️ Marked: Affects Me Too! Escalated to Municipal Ward Engineer." : "Removed endorsement.");
         }
 
-        function shareIncident(id) {
+        function shareCivicIssue(id) {
             if (navigator.share) {
                 navigator.share({
                     title: `DRISHTI AI Civic Incident #${id}`,
@@ -1779,243 +2208,247 @@
                 }).catch(() => {});
             } else {
                 navigator.clipboard.writeText(window.location.href);
-                showToast("📋 Incident link copied to clipboard!");
+                triggerToast("📋 Incident link copied to clipboard!");
             }
         }
 
-        // ================= INCIDENT DETAILS MODAL =================
-        function openIncidentDetails(id) {
-            const item = incidents.find(i => i.id === id);
+        // ================= INCIDENT DETAILS MODAL (7-STEP TIMELINE) =================
+        function openIncidentDeepDive(id) {
+            const item = civicIncidents.find(i => i.id === id);
             if (!item) return;
-            activeIncident = item;
+            currentlyViewingIncident = item;
 
-            document.getElementById("detailHeroImg").src = item.img_before;
-            document.getElementById("detailIncidentId").textContent = item.id;
-            document.getElementById("detailTitle").textContent = item.title;
+            document.getElementById("modalHeroImg").src = item.img_before;
+            document.getElementById("modalIncidentId").textContent = item.id;
+            document.getElementById("modalTitle").textContent = item.title;
 
             // Status Badge
-            const statusBadge = document.getElementById("detailStatusBadge");
-            statusBadge.className = `badge-status ${item.status === 'FIXED' ? 'status-fixed' : (item.status === 'IN_PROGRESS' ? 'status-progress' : 'status-critical')}`;
+            const statusBadge = document.getElementById("modalStatusBadge");
+            statusBadge.className = `badge-status-pill ${item.status === 'FIXED' ? 'pill-fixed' : (item.status === 'IN_PROGRESS' ? 'pill-progress' : 'pill-critical')}`;
             statusBadge.textContent = item.status_label;
 
             // Bus Banner
-            const busBanner = document.getElementById("detailBusBanner");
+            const busBanner = document.getElementById("modalBusBanner");
             if (item.source === 'BUS') {
                 busBanner.style.display = 'flex';
-                document.getElementById("detailBusDesc").textContent = `Automatically captured by public transit fleet dashcam (${item.bus_id || 'Transit Bus'}) at ${item.bus_speed || '35 km/h'}. Multi-frame edge CV verified with ${item.sensor_fusion || 'IMU sensor fusion'}.`;
+                document.getElementById("modalBusDesc").textContent = `Captured by Transit Fleet ${item.bus_id || 'Bus'} at ${item.bus_speed || '35 km/h'}. Multi-frame edge CV verified with ${item.sensor_fusion}.`;
             } else {
                 busBanner.style.display = 'none';
             }
 
-            // Timeline Steps
-            updateTimelineSteps(item.status);
+            // 7-Step Timeline Stepper
+            update7StepTimeline(item.status);
 
-            // Before / After Box
-            const beforeAfterBox = document.getElementById("detailBeforeAfterBox");
+            // Before / After Comparison
+            const repairBox = document.getElementById("modalRepairBox");
             if (item.status === 'FIXED' && item.img_after) {
-                beforeAfterBox.style.display = 'block';
-                document.getElementById("splitBeforeImg").src = item.img_before;
-                document.getElementById("splitAfterImg").src = item.img_after;
-                if (item.repair_notes) document.getElementById("detailRepairNotes").textContent = item.repair_notes;
+                repairBox.style.display = 'block';
+                document.getElementById("splitImgBefore").src = item.img_before;
+                document.getElementById("splitImgAfter").src = item.img_after;
+                if (item.repair_notes) document.getElementById("modalRepairNotes").textContent = item.repair_notes;
                 resetSplitSlider();
             } else {
-                beforeAfterBox.style.display = 'none';
+                repairBox.style.display = 'none';
             }
 
-            // Key Details
-            document.getElementById("detailLocationText").textContent = item.location_name;
-            document.getElementById("detailMapsLink").href = `https://www.google.com/maps?q=${item.coords[0]},${item.coords[1]}`;
-            document.getElementById("detailSourceText").textContent = item.source === 'BUS' ? `DRISHTI Bus Vision (${item.bus_id || 'Transit Bus'})` : 'Citizen Mobile App (DPDP Protected)';
-            document.getElementById("detailConfidenceText").textContent = `${item.ai_confidence} (${item.sensor_fusion})`;
-            document.getElementById("detailSightingsText").textContent = item.sightings_text;
-            document.getElementById("detailDeptText").textContent = item.department;
-            document.getElementById("detailTimeText").textContent = item.timestamp;
+            // Specs
+            document.getElementById("modalLocationText").textContent = item.location_name;
+            document.getElementById("modalMapsLink").href = `https://www.google.com/maps?q=${item.coords[0]},${item.coords[1]}`;
+            document.getElementById("modalSourceText").textContent = item.source === 'BUS' ? `Bus Vision (${item.bus_id || 'Transit Bus'})` : 'Citizen Mobile App (DPDP Protected)';
+            document.getElementById("modalConfidenceText").textContent = `${item.ai_confidence} (${item.sensor_fusion})`;
+            document.getElementById("modalSightingsText").textContent = item.sightings_text;
+            document.getElementById("modalDeptText").textContent = item.department;
+            document.getElementById("modalTimeText").textContent = item.timestamp;
 
             // Render Comments
-            renderDetailComments(item.comments);
+            renderModalComments(item.comments);
 
-            document.getElementById("incidentDetailModal").classList.add("active");
+            document.getElementById("incidentModalOverlay").classList.add("active");
         }
 
         function closeIncidentModal() {
-            document.getElementById("incidentDetailModal").classList.remove("active");
-            activeIncident = null;
+            document.getElementById("incidentModalOverlay").classList.remove("active");
+            currentlyViewingIncident = null;
         }
 
-        function updateTimelineSteps(status) {
-            const s1 = document.getElementById("stepDetected");
-            const s2 = document.getElementById("stepVerified");
-            const s3 = document.getElementById("stepDispatched");
-            const s4 = document.getElementById("stepProgress");
-            const s5 = document.getElementById("stepFixed");
+        function update7StepTimeline(status) {
+            const steps = [
+                document.getElementById("step1_detected"),
+                document.getElementById("step2_verified"),
+                document.getElementById("step3_assigned"),
+                document.getElementById("step4_progress"),
+                document.getElementById("step5_submitted"),
+                document.getElementById("step6_audit"),
+                document.getElementById("step7_closed")
+            ];
 
-            [s1, s2, s3, s4, s5].forEach(s => {
-                s.className = 'timeline-step';
-            });
+            steps.forEach(s => s.className = 'stepper-step');
 
-            s1.classList.add("completed");
-            s2.classList.add("completed");
-
-            if (status === 'IN_PROGRESS') {
-                s3.classList.add("completed");
-                s4.classList.add("current");
-            } else if (status === 'FIXED') {
-                s3.classList.add("completed");
-                s4.classList.add("completed");
-                s5.classList.add("completed");
+            if (status === 'FIXED') {
+                steps.forEach(s => s.classList.add("completed"));
+            } else if (status === 'IN_PROGRESS') {
+                steps[0].classList.add("completed");
+                steps[1].classList.add("completed");
+                steps[2].classList.add("completed");
+                steps[3].classList.add("active");
             } else {
-                s3.classList.add("current");
+                // PENDING
+                steps[0].classList.add("completed");
+                steps[1].classList.add("completed");
+                steps[2].classList.add("active");
             }
         }
 
-        // ================= INTERACTIVE BEFORE/AFTER SLIDER =================
-        function initSplitSliderEvents() {
-            const container = document.getElementById("splitSliderWrap");
-            const clip = document.getElementById("splitBeforeClip");
-            const handle = document.getElementById("splitSliderHandle");
-            if (!container || !clip || !handle) return;
+        // ================= BEFORE/AFTER SLIDER INTERACTIVITY =================
+        function initSplitSliderInteractivity() {
+            const container = document.getElementById("splitSliderBox");
+            const clipLayer = document.getElementById("splitClipLayer");
+            const pin = document.getElementById("splitDragPin");
+            if (!container || !clipLayer || !pin) return;
 
-            let isDragging = false;
+            let dragging = false;
 
-            const onMove = (clientX) => {
+            const onMoveHandle = (clientX) => {
                 const rect = container.getBoundingClientRect();
                 let x = clientX - rect.left;
                 if (x < 0) x = 0;
                 if (x > rect.width) x = rect.width;
                 const pct = (x / rect.width) * 100;
-                clip.style.width = `${pct}%`;
-                handle.style.left = `${pct}%`;
+                clipLayer.style.width = `${pct}%`;
+                pin.style.left = `${pct}%`;
             };
 
-            container.addEventListener("mousedown", (e) => { isDragging = true; onMove(e.clientX); });
-            window.addEventListener("mouseup", () => { isDragging = false; });
-            window.addEventListener("mousemove", (e) => { if (isDragging) onMove(e.clientX); });
+            container.addEventListener("mousedown", (e) => { dragging = true; onMoveHandle(e.clientX); });
+            window.addEventListener("mouseup", () => { dragging = false; });
+            window.addEventListener("mousemove", (e) => { if (dragging) onMoveHandle(e.clientX); });
 
-            container.addEventListener("touchstart", (e) => { isDragging = true; onMove(e.touches[0].clientX); }, { passive: true });
-            window.addEventListener("touchend", () => { isDragging = false; });
-            window.addEventListener("touchmove", (e) => { if (isDragging) onMove(e.touches[0].clientX); }, { passive: true });
+            container.addEventListener("touchstart", (e) => { dragging = true; onMoveHandle(e.touches[0].clientX); }, { passive: true });
+            window.addEventListener("touchend", () => { dragging = false; });
+            window.addEventListener("touchmove", (e) => { if (dragging) onMoveHandle(e.touches[0].clientX); }, { passive: true });
         }
 
         function resetSplitSlider() {
-            const clip = document.getElementById("splitBeforeClip");
-            const handle = document.getElementById("splitSliderHandle");
-            if (clip && handle) {
-                clip.style.width = '50%';
-                handle.style.left = '50%';
+            const clipLayer = document.getElementById("splitClipLayer");
+            const pin = document.getElementById("splitDragPin");
+            if (clipLayer && pin) {
+                clipLayer.style.width = '50%';
+                pin.style.left = '50%';
             }
         }
 
         // ================= COMMENTS IN MODAL =================
-        function renderDetailComments(comments) {
-            const list = document.getElementById("detailCommentsList");
-            document.getElementById("detailCommentsCount").textContent = comments.length;
+        function renderModalComments(comments) {
+            const list = document.getElementById("modalCommentsList");
+            document.getElementById("modalCommentsCount").textContent = comments.length;
             if (!list) return;
 
             list.innerHTML = comments.map(c => `
-                <div class="comment-item">
-                    <div class="comment-author">${c.is_official ? '🏛️ ' : '👤 '}${c.author}</div>
-                    <div class="comment-text">${c.text}</div>
+                <div class="comment-post-item">
+                    <div class="comment-author-name">${c.is_official ? '🏛️ ' : '👤 '}${c.author}</div>
+                    <div style="color:var(--text-body);">${c.text}</div>
                 </div>
             `).join('');
         }
 
-        function submitDetailComment() {
-            const input = document.getElementById("detailCommentInput");
-            if (!input || !input.value.trim() || !activeIncident) return;
+        function submitModalComment() {
+            const input = document.getElementById("modalCommentInput");
+            if (!input || !input.value.trim() || !currentlyViewingIncident) return;
 
-            const newComment = {
+            const newC = {
                 author: "Concerned Resident",
                 text: input.value.trim(),
                 is_official: false
             };
-            activeIncident.comments.push(newComment);
-            saveIncidents();
+            currentlyViewingIncident.comments.push(newC);
+            saveDataStore();
 
             input.value = "";
-            renderDetailComments(activeIncident.comments);
-            renderCommunityFeed();
-            showToast("💬 Comment posted to public grievance record.");
+            renderModalComments(currentlyViewingIncident.comments);
+            renderCommunityCivicFeed();
+            triggerToast("💬 Comment recorded on municipal ticket.");
         }
 
-        // ================= REPORT MODAL & FORM =================
-        function openReportModal() {
-            document.getElementById("reportIssueModal").classList.add("active");
+        // ================= REPORT WIZARD (5 STEPS) =================
+        function openReportWizard() {
+            document.getElementById("reportWizardOverlay").classList.add("active");
         }
-        function closeReportModal() {
-            document.getElementById("reportIssueModal").classList.remove("active");
-        }
-
-        let selectedPhotoData = null;
-
-        function triggerPhotoSelect() {
-            document.getElementById("reportFileInput").click();
+        function closeReportWizard() {
+            document.getElementById("reportWizardOverlay").classList.remove("active");
         }
 
-        function onPhotoSelected(e) {
+        let wizardPhotoBase64 = null;
+
+        function triggerPhotoUpload() {
+            document.getElementById("wizardFileInput").click();
+        }
+
+        function onWizardPhotoPicked(e) {
             const file = e.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(evt) {
-                    selectedPhotoData = evt.target.result;
-                    showPreviewPhoto(selectedPhotoData);
+                    wizardPhotoBase64 = evt.target.result;
+                    displayWizardPreview(wizardPhotoBase64);
                 };
                 reader.readAsDataURL(file);
             }
         }
 
-        function useSamplePhoto() {
-            selectedPhotoData = "./assets/sample_pothole.jpg";
-            showPreviewPhoto(selectedPhotoData);
-            showToast("🖼️ Sample road pothole loaded.");
+        function useDemoPotholePhoto() {
+            wizardPhotoBase64 = "./assets/sample_pothole.jpg";
+            displayWizardPreview(wizardPhotoBase64);
+            triggerToast("🖼️ Loaded verified pothole sample photo.");
         }
 
-        function showPreviewPhoto(src) {
-            const preview = document.getElementById("photoPreviewImg");
-            const placeholder = document.getElementById("photoPlaceholder");
+        function displayWizardPreview(src) {
+            const preview = document.getElementById("wizardPreviewImg");
+            const dropText = document.getElementById("dropzoneText");
             preview.src = src;
             preview.style.display = 'block';
-            placeholder.style.display = 'none';
+            dropText.style.display = 'none';
         }
 
-        function handleReportSubmit(e) {
+        function handleWizardSubmit(e) {
             e.preventDefault();
-            const btn = document.getElementById("submitReportBtn");
+            const btn = document.getElementById("wizardSubmitBtn");
             btn.disabled = true;
-            btn.textContent = "Analyzing & Submitting...";
+            btn.textContent = "AI Assessing & Submitting...";
 
             setTimeout(() => {
-                const category = document.getElementById("reportCategory").value;
-                const desc = document.getElementById("reportDescription").value.trim() || `Hazard reported by resident: ${category}`;
-                const location = document.getElementById("reportLocationInput").value || "Station Road, Ward 34, Gwalior";
-                const isAnon = document.getElementById("reportAnonymous").checked;
+                const cat = document.getElementById("wizardCategory").value;
+                const desc = document.getElementById("wizardDesc").value.trim() || `Civic hazard reported: ${cat}`;
+                const loc = document.getElementById("wizardLocationInput").value || "Station Road, Ward 34, Gwalior";
+                const isAnon = document.getElementById("wizardAnonymous").checked;
+                const newId = `INC-GWL-2026-${Math.floor(1000 + Math.random() * 9000)}`;
 
                 const newIncident = {
-                    id: `INC-GWL-2026-${Math.floor(1000 + Math.random() * 9000)}`,
-                    title: category === 'pothole' ? 'Road Surface Pothole' : category.replace(/_/g, ' ').toUpperCase(),
-                    category: category,
-                    category_label: category.replace(/_/g, ' ').toUpperCase(),
+                    id: newId,
+                    title: cat === 'pothole' ? 'Road Surface Pothole' : cat.replace(/_/g, ' ').toUpperCase(),
+                    category: cat,
+                    category_label: cat.replace(/_/g, ' ').toUpperCase(),
                     severity: "Critical",
+                    severity_color: "pill-critical",
                     status: "PENDING",
                     status_label: "🔴 Pending Action",
                     source: "CITIZEN",
-                    source_label: "👤 Reported by Citizen",
+                    source_label: "Citizen Report",
                     bus_id: null,
                     bus_speed: null,
-                    location_name: location,
+                    location_name: loc,
                     ward: "Ward 34 (Maharaj Bada)",
                     coords: [26.218342 + (Math.random() - 0.5) * 0.005, 78.182810 + (Math.random() - 0.5) * 0.005],
                     distance: "50m away",
                     reported_time: "Just now",
                     timestamp: new Date().toISOString().replace("T", " ").substring(0, 19) + " IST",
                     ai_confidence: "93.4%",
-                    sensor_fusion: "Citizen Geotag + Edge Luminance",
+                    sensor_fusion: "Citizen Geotag + Edge Vision",
                     sightings_count: 1,
                     sightings_text: "1 resident grievance logged",
                     department: "Gwalior Municipal Corp / PWD Road Division",
                     affected_count: 1,
                     endorsed: false,
                     desc: desc,
-                    img_before: selectedPhotoData || "./assets/sample_pothole.jpg",
+                    img_before: wizardPhotoBase64 || "./assets/sample_pothole.jpg",
                     img_after: null,
                     repair_notes: null,
                     comments: [
@@ -2023,118 +2456,182 @@
                     ]
                 };
 
-                incidents.unshift(newIncident);
-                saveIncidents();
-                renderMapPins();
-                renderNearbyCards();
-                renderCommunityFeed();
+                civicIncidents.unshift(newIncident);
+                saveDataStore();
+                renderNearbyPreviewCards();
+                renderCommunityCivicFeed();
+                if (leafletNearbyMap) plotMapMarkers(leafletNearbyMap);
 
                 btn.disabled = false;
-                btn.textContent = "Submit Civic Grievance ➔";
-                closeReportModal();
-                showToast(`✅ Grievance #${newIncident.id} recorded & queued for municipal PWD dispatch!`);
-            }, 600);
+                btn.textContent = "Submit Grievance to Municipal PWD ➔";
+                closeReportWizard();
+                triggerToast(`✅ Grievance #${newId} dispatched to Ward 34 PWD!`);
+            }, 500);
         }
 
-        // ================= VOICE DICTATION =================
-        function startVoiceDictation() {
+        // ================= VOICE INPUT =================
+        function startVoiceInput() {
             if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-                showToast("Voice recognition not supported in this browser. Please type description.");
+                triggerToast("Voice dictation not supported in this browser. Please type description.");
                 return;
             }
 
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            const recognition = new SpeechRecognition();
-            recognition.lang = currentLang === 'HI' ? 'hi-IN' : 'en-IN';
-            recognition.interimResults = false;
+            const recognizer = new SpeechRecognition();
+            recognizer.lang = currentLang === 'HI' ? 'hi-IN' : 'en-IN';
+            recognizer.interimResults = false;
 
-            const voiceBtnText = document.getElementById("voiceBtnText");
-            voiceBtnText.textContent = "Listening...";
+            const status = document.getElementById("voiceStatus");
+            status.textContent = "Listening...";
 
-            recognition.onresult = function(event) {
-                const transcript = event.results[0][0].transcript;
-                const descInput = document.getElementById("reportDescription");
-                descInput.value = descInput.value ? `${descInput.value} ${transcript}` : transcript;
-                voiceBtnText.textContent = "Speak (Hindi/Eng)";
-                showToast("🎙️ Speech recognized & added!");
+            recognizer.onresult = function(e) {
+                const text = e.results[0][0].transcript;
+                const descBox = document.getElementById("wizardDesc");
+                descBox.value = descBox.value ? `${descBox.value} ${text}` : text;
+                status.textContent = "Speak (Hindi/Eng)";
+                triggerToast("🎙️ Voice transcription added!");
             };
 
-            recognition.onerror = function() {
-                voiceBtnText.textContent = "Speak (Hindi/Eng)";
-                showToast("Microphone access ended.");
+            recognizer.onerror = function() {
+                status.textContent = "Speak (Hindi/Eng)";
             };
 
-            recognition.start();
+            recognizer.start();
         }
 
-        // ================= BILINGUAL TOGGLE =================
+        // ================= NAVIGATION BETWEEN SCREENS =================
+        function navigateToScreen(screenId, navEl) {
+            document.querySelectorAll("#screenHome, #screenMap, #screenMyReports, #screenBusVision").forEach(s => s.style.display = 'none');
+            document.querySelectorAll(".mob-nav-item, .desktop-nav-link").forEach(n => n.classList.remove("active"));
+
+            if (screenId === 'home') {
+                document.getElementById("screenHome").style.display = 'block';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else if (screenId === 'map') {
+                document.getElementById("screenMap").style.display = 'block';
+                setTimeout(() => {
+                    initFullScreenMap();
+                }, 100);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else if (screenId === 'my_reports') {
+                document.getElementById("screenMyReports").style.display = 'block';
+                renderMyReportsList();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else if (screenId === 'bus_vision') {
+                document.getElementById("screenBusVision").style.display = 'block';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            if (navEl) navEl.classList.add("active");
+        }
+
+        // Full Screen Map Initialization
+        function initFullScreenMap() {
+            if (!leafletFullScreenMap) {
+                leafletFullScreenMap = L.map('fullScreenMap', {
+                    zoomControl: true,
+                    attributionControl: false
+                }).setView([26.218342, 78.182810], 14);
+
+                L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+                    maxZoom: 19
+                }).addTo(leafletFullScreenMap);
+            }
+            plotMapMarkers(leafletFullScreenMap);
+            leafletFullScreenMap.invalidateSize();
+        }
+
+        // My Reports Screen
+        function renderMyReportsList(filter = 'all') {
+            const container = document.getElementById("myReportsList");
+            if (!container) return;
+
+            let filtered = civicIncidents.filter(i => i.source === 'CITIZEN' || i.id.includes("0842"));
+            if (filter !== 'all') {
+                filtered = filtered.filter(i => i.status === filter);
+            }
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div style="background:#fff; border:1px solid var(--border-light); border-radius:var(--radius-lg); padding:40px 20px; text-align:center;">
+                        <strong style="color:var(--text-heading); font-size:14px;">No reports in this category</strong>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map(item => `
+                <div class="civic-issue-card" style="padding:16px;" onclick="openIncidentDeepDive('${item.id}')">
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                        <div>
+                            <span style="font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; color:var(--navy-gov);">${item.id}</span>
+                            <h3 style="font-size:15px; font-weight:800; color:var(--text-heading); margin-top:2px;">${item.title}</h3>
+                            <div style="font-size:12px; color:var(--text-secondary); margin-top:3px;">📍 ${item.location_name}</div>
+                        </div>
+                        <span class="badge-status-pill ${item.status === 'FIXED' ? 'pill-fixed' : (item.status === 'IN_PROGRESS' ? 'pill-progress' : 'pill-critical')}" style="position:static;">
+                            ${item.status_label}
+                        </span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterMyReports(status, btn) {
+            document.querySelectorAll("#screenMyReports .feed-filter-btn").forEach(b => b.classList.remove("active"));
+            if (btn) btn.classList.add("active");
+            renderMyReportsList(status);
+        }
+
+        // ================= LANGUAGE TOGGLE =================
         function toggleLanguage() {
             currentLang = currentLang === 'EN' ? 'HI' : 'EN';
-            document.getElementById("langBtnText").textContent = currentLang === 'EN' ? 'हिं' : 'EN';
+            document.getElementById("langSwitchText").textContent = currentLang === 'EN' ? 'हिं' : 'EN';
 
             if (currentLang === 'HI') {
-                document.getElementById("heroActionTitle").textContent = "सड़क सुरक्षा शिकायत दर्ज करें";
-                document.getElementById("heroActionSub").textContent = "गड्ढा, खुला मैनहोल, जलभराव या टूटी लाइट? नगर निगम पीडब्ल्यूडी टीम को तुरंत भेजें।";
-                document.getElementById("heroBtnText").textContent = "फोटो खींचें और रिपोर्ट करें";
-                document.getElementById("nearbySectionTitle").textContent = "आस-पास की नागरिक समस्याएं";
-                showToast("भाषा हिन्दी में बदली गई");
+                document.getElementById("heroHeading").textContent = "अपने शहर को सुरक्षित बनाएं";
+                document.getElementById("heroDesc").textContent = "दृष्टि एआई (DRISHTI AI) सिटी बसों पर लगे कैमरों और नागरिक रिपोर्टों से सड़क सुरक्षा की निगरानी करता है।";
+                document.getElementById("heroCtaReport").textContent = "समस्या दर्ज करें";
+                document.getElementById("heroCtaNearby").textContent = "नजदीकी समस्याएं देखें";
+                document.getElementById("communityFeedTitle").textContent = "सामुदायिक शिकायत सूची";
+                document.getElementById("nearbySectionTitle").textContent = "आस-पास के सड़क खतरे";
+                triggerToast("भाषा हिन्दी में बदली गई");
             } else {
-                document.getElementById("heroActionTitle").textContent = "Report a Road Hazard";
-                document.getElementById("heroActionSub").textContent = "Spotted a pothole, open manhole, waterlogging or dark blackspot? Report it with location for rapid municipal PWD dispatch.";
-                document.getElementById("heroBtnText").textContent = "Snap & Report";
+                document.getElementById("heroHeading").textContent = "Make Your City Safer";
+                document.getElementById("heroDesc").textContent = "DRISHTI AI continuously monitors roads using AI-enabled public buses and citizen reports. Flag road hazards, track municipal repair status, and improve civic infrastructure in real time.";
+                document.getElementById("heroCtaReport").textContent = "Report Civic Issue";
+                document.getElementById("heroCtaNearby").textContent = "View Nearby Issues";
+                document.getElementById("communityFeedTitle").textContent = "Community Civic Feed";
                 document.getElementById("nearbySectionTitle").textContent = "Nearby Civic Hazards";
-                showToast("Language switched to English");
+                triggerToast("Language switched to English");
             }
         }
 
-        // ================= UI HELPERS =================
-        function showToast(msg) {
-            const toast = document.getElementById("appToast");
+        // ================= UTILITIES =================
+        function triggerToast(msg) {
+            const toast = document.getElementById("toastBox");
             if (!toast) return;
             toast.textContent = msg;
             toast.style.display = "block";
             setTimeout(() => { toast.style.display = "none"; }, 3500);
         }
 
-        function showNotificationAlert() {
-            showToast("🔔 2 Updates: Repair verified at Station Road (#INC-0842) · Crew dispatched to Lashkar.");
+        function triggerNotificationTray() {
+            triggerToast("🔔 2 Updates: Repair completed at Station Road (#INC-0842) · PWD assigned to Kampoo.");
         }
 
-        function promptChangeLocation() {
-            const ward = prompt("Enter your municipal ward / locality:", "Ward 34 · Maharaj Bada, Gwalior");
-            if (ward) {
-                document.getElementById("headerWardText").textContent = `📍 ${ward}`;
-                showToast(`Location set to: ${ward}`);
+        function promptWardChange() {
+            const newWard = prompt("Enter your Municipal Ward / Locality:", "Ward 34 · Maharaj Bada, Gwalior");
+            if (newWard) {
+                document.getElementById("locWardDisplay").textContent = `📍 ${newWard}`;
+                triggerToast(`Ward updated: ${newWard}`);
             }
         }
 
-        function resetFeed() {
-            currentFilter = 'all';
-            document.querySelectorAll(".filter-chip").forEach((c, idx) => c.classList.toggle("active", idx === 0));
-            renderCommunityFeed();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function openFullMapView() {
-            showToast("🗺️ Switched to full interactive GIS blackspot map");
-            window.scrollTo({ top: 120, behavior: 'smooth' });
-        }
-
-        function switchNavTab(tab, el) {
-            document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
-            if (el) el.classList.add("active");
-
-            if (tab === 'home') {
-                resetFeed();
-            } else if (tab === 'map') {
-                openFullMapView();
-            } else if (tab === 'my_reports') {
-                showToast("📋 Showing grievances submitted from this device");
-                currentFilter = 'all';
-                renderCommunityFeed();
-            } else if (tab === 'profile') {
-                showToast("👤 Citizen Profile: Anonymous Resident 🥷 (DPDP Act Protected)");
-            }
+        function resetFilterAndScroll() {
+            activeFeedFilter = 'all';
+            document.querySelectorAll(".feed-filter-btn").forEach((b, idx) => b.classList.toggle("active", idx === 0));
+            renderCommunityCivicFeed();
+            triggerToast("Feed refreshed.");
         }
     </script>
 </body>
