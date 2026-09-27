@@ -261,6 +261,25 @@
             border: 2px solid #fff;
         }
 
+        /* User Profile Avatar in Top Bar */
+        .user-avatar-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--navy-subtle);
+            border: 1px solid var(--navy-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .user-avatar-btn:hover {
+            border-color: var(--navy-gov);
+            transform: scale(1.05);
+        }
+
         /* Desktop Nav Links */
         .desktop-nav-links {
             display: none;
@@ -794,10 +813,10 @@
             margin-bottom: 20px;
         }
 
-        /* Pipeline Flow Diagram */
+        /* 8-Step Visual Pipeline Flow */
         .pipeline-flow-wrap {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             gap: 10px;
             margin-bottom: 18px;
         }
@@ -865,7 +884,7 @@
             line-height: 1.45;
         }
 
-        /* ================= BOTTOM NAVIGATION (MOBILE APPS) ================= */
+        /* ================= BOTTOM NAVIGATION (MOBILE: Home | Map | Report | My Reports | Profile) ================= */
         .mobile-bottom-nav {
             position: fixed;
             bottom: 0;
@@ -1290,6 +1309,24 @@
             border-color: var(--saffron-primary);
         }
 
+        /* Confirmation Receipt Box after Step 5 Submission */
+        .confirmation-receipt-box {
+            text-align: center;
+            padding: 20px 10px;
+        }
+        .receipt-id-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--navy-gov);
+            background: var(--navy-subtle);
+            border: 1px solid var(--navy-border);
+            border-radius: var(--radius-sm);
+            padding: 6px 14px;
+            display: inline-block;
+            margin: 12px 0;
+        }
+
         /* Toast Notifications */
         .toast-banner {
             position: fixed;
@@ -1348,7 +1385,7 @@
                     </div>
                 </div>
 
-                <!-- Location / Ward Selector -->
+                <!-- Current Location / Ward Selector -->
                 <div class="location-pill" onclick="promptWardChange()" title="Change Ward / Locality">
                     <span id="locWardDisplay">📍 Ward 34 · Maharaj Bada, Gwalior</span>
                 </div>
@@ -1359,9 +1396,10 @@
                     <span class="desktop-nav-link" onclick="navigateToScreen('map')">Map</span>
                     <span class="desktop-nav-link" onclick="navigateToScreen('my_reports')">My Reports</span>
                     <span class="desktop-nav-link" onclick="navigateToScreen('bus_vision')">Bus Vision AI</span>
+                    <span class="desktop-nav-link" onclick="navigateToScreen('profile')">Profile</span>
                 </nav>
 
-                <!-- Right Actions: Sync, Language, Notifications -->
+                <!-- Right Actions: Sync, Language, Notifications, Avatar -->
                 <div class="nav-right-actions">
                     <div class="sync-badge" title="Edge detection telemetry synchronized">
                         <span class="sync-dot"></span>
@@ -1376,6 +1414,10 @@
                         🔔
                         <span class="notif-badge">2</span>
                     </button>
+
+                    <div class="user-avatar-btn" onclick="navigateToScreen('profile')" title="Citizen Profile">
+                        👤
+                    </div>
                 </div>
             </div>
         </div>
@@ -1391,7 +1433,7 @@
                 <span class="hero-tag">🇮🇳 Smart India Civic Action Platform</span>
                 <h1 class="hero-title" id="heroHeading">Make Your City Safer</h1>
                 <p class="hero-desc" id="heroDesc">
-                    DRISHTI AI continuously monitors roads using AI-enabled public buses and citizen reports. 
+                    Citizens and AI-powered public transport cameras work together to identify civic problems. 
                     Flag road hazards, track municipal repair status, and improve civic infrastructure in real time.
                 </p>
                 <div class="hero-actions">
@@ -1442,14 +1484,15 @@
                     </div>
 
                     <div class="nearby-card-box">
-                        <!-- Category Pins Filter on Map -->
+                        <!-- Category Pins Filter on Map: Pothole, Streetlight, Garbage, Illegal Banner, Road Hazard, Animal -->
                         <div class="map-categories-strip">
                             <span class="map-cat-chip active" onclick="filterMapCategory('all', this)">All</span>
                             <span class="map-cat-chip" onclick="filterMapCategory('pothole', this)">🕳️ Pothole</span>
                             <span class="map-cat-chip" onclick="filterMapCategory('broken_streetlight', this)">💡 Streetlight</span>
-                            <span class="map-cat-chip" onclick="filterMapCategory('waterlogging', this)">🌊 Waterlogging</span>
                             <span class="map-cat-chip" onclick="filterMapCategory('garbage_overflow', this)">🗑️ Garbage</span>
-                            <span class="map-cat-chip" onclick="filterMapCategory('destructed_border', this)">🚧 Barrier</span>
+                            <span class="map-cat-chip" onclick="filterMapCategory('illegal_banner', this)">🚩 Banner</span>
+                            <span class="map-cat-chip" onclick="filterMapCategory('destructed_border', this)">🚧 Hazard</span>
+                            <span class="map-cat-chip" onclick="filterMapCategory('stray_animal', this)">🐄 Animal</span>
                         </div>
 
                         <!-- Compact Interactive Map -->
@@ -1483,8 +1526,8 @@
                 <span class="bus-badge-tag">DRISHTI AI Core USP</span>
                 <h2 class="bus-feature-title">Your city is being monitored while it moves.</h2>
                 <p class="bus-feature-desc">
-                    Every day, public transit buses navigate all arterial corridors. DRISHTI turns ordinary buses into a moving road inspection network.
-                    Edge AI analyzes the road locally, transmitting verified defect coordinates and snapshots without streaming heavy cloud video.
+                    Public buses equipped with ordinary smartphones/dashcams continuously observe roads. 
+                    The AI performs lightweight computer vision on the device and sends only meaningful detected events instead of continuously uploading video.
                 </p>
 
                 <!-- Step-by-Step Flow Pipeline -->
@@ -1496,27 +1539,37 @@
                     </div>
                     <div class="pipeline-node">
                         <div class="pipeline-node-icon">⚡</div>
-                        <div class="pipeline-node-label">2. Edge CV</div>
+                        <div class="pipeline-node-label">2. Edge AI Detection</div>
                         <div class="pipeline-node-sub">12-15 FPS On-Device</div>
                     </div>
                     <div class="pipeline-node">
                         <div class="pipeline-node-icon">🛰️</div>
-                        <div class="pipeline-node-label">3. GPS + IMU</div>
+                        <div class="pipeline-node-label">3. GPS + Timestamp</div>
                         <div class="pipeline-node-sub">Shock Sensor Fusion</div>
                     </div>
                     <div class="pipeline-node">
+                        <div class="pipeline-node-icon">🔍</div>
+                        <div class="pipeline-node-label">4. Incident Verification</div>
+                        <div class="pipeline-node-sub">Multi-Frame Optical</div>
+                    </div>
+                    <div class="pipeline-node">
                         <div class="pipeline-node-icon">🔁</div>
-                        <div class="pipeline-node-label">4. Clustering</div>
+                        <div class="pipeline-node-label">5. Duplicate Clustering</div>
                         <div class="pipeline-node-sub">&lt;20m Spatial Merge</div>
                     </div>
                     <div class="pipeline-node">
+                        <div class="pipeline-node-icon">🖥️</div>
+                        <div class="pipeline-node-label">6. Municipal Dashboard</div>
+                        <div class="pipeline-node-sub">Officer Triage View</div>
+                    </div>
+                    <div class="pipeline-node">
                         <div class="pipeline-node-icon">🏛️</div>
-                        <div class="pipeline-node-label">5. Ward Routing</div>
-                        <div class="pipeline-node-sub">Assigned to PWD/Govt</div>
+                        <div class="pipeline-node-label">7. Department Action</div>
+                        <div class="pipeline-node-sub">Dispatched to PWD/Govt</div>
                     </div>
                     <div class="pipeline-node">
                         <div class="pipeline-node-icon">✅</div>
-                        <div class="pipeline-node-label">6. AI Verification</div>
+                        <div class="pipeline-node-label">8. Resolution</div>
                         <div class="pipeline-node-sub">Before / After Audit</div>
                     </div>
                 </div>
@@ -1533,17 +1586,19 @@
         <!-- ================= SCREEN 2: FULL MAP VIEW ================= -->
         <div id="screenMap" style="display:none;">
             <div class="section-header">
-                <h2 class="section-heading-text">🗺️ Interactive Civic Hazard GIS Map</h2>
+                <h2 class="section-heading-text">🗺️ Full-Screen Civic Issue Map</h2>
                 <button class="btn-secondary-action" onclick="navigateToScreen('home')">Back to Home</button>
             </div>
             
             <div class="nearby-card-box" style="margin-bottom:16px;">
                 <div class="map-categories-strip">
-                    <span class="map-cat-chip active" onclick="filterMapCategory('all', this)">All</span>
+                    <span class="map-cat-chip active" onclick="filterMapCategory('all', this)">All Categories</span>
                     <span class="map-cat-chip" onclick="filterMapCategory('pothole', this)">🕳️ Potholes</span>
                     <span class="map-cat-chip" onclick="filterMapCategory('broken_streetlight', this)">💡 Streetlights</span>
                     <span class="map-cat-chip" onclick="filterMapCategory('waterlogging', this)">🌊 Waterlogging</span>
                     <span class="map-cat-chip" onclick="filterMapCategory('garbage_overflow', this)">🗑️ Garbage</span>
+                    <span class="map-cat-chip" onclick="filterMapCategory('destructed_border', this)">🚧 Road Hazard</span>
+                    <span class="map-cat-chip" onclick="filterMapCategory('stray_animal', this)">🐄 Animal</span>
                 </div>
                 <div id="fullScreenMap" style="height:540px; width:100%;"></div>
             </div>
@@ -1553,7 +1608,7 @@
         <div id="screenMyReports" style="display:none;">
             <div class="section-header">
                 <h2 class="section-heading-text">📋 My Submitted Grievances</h2>
-                <button class="btn-primary-action" onclick="openReportWizard()">+ New Report</button>
+                <button class="btn-primary-action" onclick="openReportWizard()">+ Report Issue</button>
             </div>
 
             <div class="filter-nav-bar">
@@ -1579,7 +1634,7 @@
                 <span class="hero-tag">Technology Overview</span>
                 <h2 class="hero-title">Continuous Inspection via Public Transport</h2>
                 <p class="hero-desc">
-                    Unlike conventional surveys requiring dedicated LiDAR/inspection trucks costing lakhs of rupees, 
+                    Instead of sending expensive specialized inspection vehicles once every six months, 
                     DRISHTI AI mounts low-cost Android phones behind the windshields of municipal transit buses. 
                     As buses complete daily passenger routes, our lightweight vision engine scans road conditions with zero dedicated driver effort.
                 </p>
@@ -1604,9 +1659,52 @@
             </div>
         </div>
 
+        <!-- ================= SCREEN 5: CITIZEN PROFILE ================= -->
+        <div id="screenProfile" style="display:none;">
+            <div class="section-header">
+                <h2 class="section-heading-text">👤 Citizen Profile & Privacy</h2>
+                <button class="btn-secondary-action" onclick="navigateToScreen('home')">Back to Home</button>
+            </div>
+
+            <div class="hero-banner" style="margin-bottom:20px;">
+                <div style="display:flex; align-items:center; gap:16px;">
+                    <div style="width:64px; height:64px; border-radius:50%; background:var(--navy-subtle); border:2px solid var(--navy-border); display:flex; align-items:center; justify-content:center; font-size:28px;">
+                        🥷
+                    </div>
+                    <div>
+                        <h2 style="font-size:20px; font-weight:800; color:var(--text-heading);">Anonymous Resident</h2>
+                        <div style="font-size:12px; color:var(--text-secondary);">Ward 34 · Maharaj Bada, Gwalior</div>
+                        <span style="font-size:10.5px; font-weight:700; color:var(--green-fixed); background:var(--green-subtle); border:1px solid var(--green-border); border-radius:4px; padding:1px 6px; display:inline-block; margin-top:4px;">
+                            🛡️ DPDP Act 2023 Shield Active
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="trust-grid" style="margin-bottom:20px;">
+                <div class="trust-card">
+                    <div style="font-size:24px; font-weight:800; color:var(--saffron-primary);">4</div>
+                    <div style="font-size:12px; font-weight:700; color:var(--text-heading); margin-top:2px;">Reports Submitted</div>
+                    <div style="font-size:11px; color:var(--text-secondary);">Across Ward 34 and Corridor 4</div>
+                </div>
+                <div class="trust-card">
+                    <div style="font-size:24px; font-weight:800; color:var(--green-fixed);">2</div>
+                    <div style="font-size:12px; font-weight:700; color:var(--text-heading); margin-top:2px;">Issues Verified Fixed</div>
+                    <div style="font-size:11px; color:var(--text-secondary);">Completed by PWD squads</div>
+                </div>
+            </div>
+
+            <div class="trust-card" style="margin-bottom:24px;">
+                <h4>Citizen Privacy Protection</h4>
+                <p style="margin-top:4px; font-size:12px; color:var(--text-secondary); line-height:1.5;">
+                    Your identity is fully protected. DRISHTI automatically strips EXIF metadata from uploaded images and applies on-device blurring to faces and vehicle license plates. Only the municipal work department receives geotagged defect coordinates.
+                </p>
+            </div>
+        </div>
+
     </div>
 
-    <!-- ================= MOBILE BOTTOM NAVIGATION ================= -->
+    <!-- ================= MOBILE BOTTOM NAVIGATION (Home | Map | Report | My Reports | Profile) ================= -->
     <nav class="mobile-bottom-nav">
         <a class="mob-nav-item active" onclick="navigateToScreen('home', this)">
             <span class="mob-nav-icon">🏠</span>
@@ -1625,13 +1723,13 @@
             <span class="mob-nav-icon">📋</span>
             <span>My Reports</span>
         </a>
-        <a class="mob-nav-item" onclick="navigateToScreen('bus_vision', this)">
-            <span class="mob-nav-icon">🚌</span>
-            <span>Bus Vision</span>
+        <a class="mob-nav-item" onclick="navigateToScreen('profile', this)">
+            <span class="mob-nav-icon">👤</span>
+            <span>Profile</span>
         </a>
     </nav>
 
-    <!-- ================= INCIDENT DETAILS MODAL (DEEP DIVE) ================= -->
+    <!-- ================= INCIDENT DETAILS MODAL (7-STEP TIMELINE & BEFORE/AFTER) ================= -->
     <div class="modal-overlay-wrap" id="incidentModalOverlay">
         <div class="modal-card-dialog">
             <button class="btn-modal-dismiss" onclick="closeIncidentModal()">✕</button>
@@ -1662,7 +1760,7 @@
                     </div>
                 </div>
 
-                <!-- 7-Step Municipal Lifecycle Timeline -->
+                <!-- 7-Step Municipal Lifecycle Timeline: Detected -> AI Verified -> Assigned -> In Progress -> Repair Submitted -> Verified -> Closed -->
                 <div class="timeline-box">
                     <div class="timeline-label-head">Municipal Resolution Lifecycle (7 Steps)</div>
                     <div class="stepper-track">
@@ -1760,78 +1858,116 @@
         </div>
     </div>
 
-    <!-- ================= REPORT ISSUE WIZARD (STEP-BY-STEP MODAL) ================= -->
+    <!-- ================= REPORT ISSUE WIZARD (5 STEPS WITH CONFIRMATION SCREEN) ================= -->
     <div class="modal-overlay-wrap" id="reportWizardOverlay">
         <div class="report-wizard-dialog">
             <button class="btn-modal-dismiss" onclick="closeReportWizard()">✕</button>
 
-            <!-- Wizard Progress Indicator -->
-            <div class="wizard-steps-indicator">
-                <span class="wizard-step-node active-step" id="wizDot1">1. Photo</span>
-                <span>➔</span>
-                <span class="wizard-step-node" id="wizDot2">2. Location</span>
-                <span>➔</span>
-                <span class="wizard-step-node" id="wizDot3">3. Category</span>
-                <span>➔</span>
-                <span class="wizard-step-node" id="wizDot4">4. Submit</span>
+            <!-- Wizard Form View -->
+            <div id="wizardFormContainer">
+                <!-- Wizard Progress Indicator -->
+                <div class="wizard-steps-indicator">
+                    <span class="wizard-step-node active-step" id="wizDot1">Step 1: Photo</span>
+                    <span>➔</span>
+                    <span class="wizard-step-node" id="wizDot2">Step 2: Location</span>
+                    <span>➔</span>
+                    <span class="wizard-step-node" id="wizDot3">Step 3: Details</span>
+                    <span>➔</span>
+                    <span class="wizard-step-node" id="wizDot4">Step 4-5: Submit</span>
+                </div>
+
+                <h2 style="font-size:18px; font-weight:800; color:var(--text-heading); margin-bottom:4px;">Report Civic Hazard</h2>
+                <p style="font-size:12.5px; color:var(--text-secondary); margin-bottom:16px;">DRISHTI AI will extract coordinates, assess severity, and assign to the local ward authority.</p>
+
+                <form id="civicReportForm" onsubmit="handleWizardSubmit(event)">
+                    <!-- Step 1: Photo Upload / Demo Photo -->
+                    <div class="upload-dropzone" onclick="triggerPhotoUpload()">
+                        <input type="file" id="wizardFileInput" accept="image/*" style="display:none;" onchange="onWizardPhotoPicked(event)" />
+                        <div id="dropzoneText">
+                            <div style="font-size:30px; margin-bottom:4px;">📸</div>
+                            <strong style="color:var(--text-heading); font-size:13.5px;">Step 1: Tap to Take Photo or Upload</strong>
+                            <div style="font-size:11.5px; color:var(--text-secondary); margin-top:4px;">High clarity helps AI estimate crater depth</div>
+                        </div>
+                        <img id="wizardPreviewImg" class="upload-preview-box" alt="Preview" />
+                    </div>
+                    <button type="button" class="btn-secondary-action" onclick="useDemoPotholePhoto()" style="width:100%; justify-content:center; margin-bottom:14px; font-size:12.5px;">
+                        🖼️ Use Verified Pothole Sample Photo
+                    </button>
+
+                    <!-- Step 2: Location (Auto GPS + Manual Correction) -->
+                    <label style="font-size:11.5px; font-weight:700; color:var(--text-secondary); display:block; margin-bottom:4px;">Step 2: Location & GPS Geotag *</label>
+                    <input type="text" class="input-control" id="wizardLocationInput" value="Station Road, Ward 34, Maharaj Bada, Gwalior" placeholder="Enter landmark or road name" />
+
+                    <!-- Step 3: Category & Severity -->
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                        <div>
+                            <label style="font-size:11.5px; font-weight:700; color:var(--text-secondary); display:block; margin-bottom:4px;">Step 3: Category *</label>
+                            <select class="input-control" id="wizardCategory">
+                                <option value="pothole">🕳️ Road Surface Pothole</option>
+                                <option value="broken_streetlight">💡 Broken Streetlight</option>
+                                <option value="waterlogging">🌊 Waterlogging & Trench</option>
+                                <option value="destructed_border">🚧 Damaged Divider</option>
+                                <option value="garbage_overflow">🗑️ Solid Waste Spillage</option>
+                                <option value="illegal_banner">🚩 Illegal Banner</option>
+                                <option value="stray_animal">🐄 Stray Animal Hazard</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="font-size:11.5px; font-weight:700; color:var(--text-secondary); display:block; margin-bottom:4px;">Optional Severity</label>
+                            <select class="input-control" id="wizardSeverity">
+                                <option value="Critical">🔴 Critical (Dangerous)</option>
+                                <option value="Moderate" selected>🟠 Moderate</option>
+                                <option value="Low">🟡 Low</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Description & Optional Voice Dictation -->
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                        <label style="font-size:11.5px; font-weight:700; color:var(--text-secondary);">Short Description</label>
+                        <button type="button" onclick="startVoiceInput()" style="background:none; border:none; color:var(--saffron-primary); font-size:11.5px; font-weight:700; cursor:pointer;">
+                            🎙️ <span id="voiceStatus">Speak (Hindi/Eng)</span>
+                        </button>
+                    </div>
+                    <textarea class="input-control" id="wizardDesc" rows="2" placeholder="Briefly describe the danger, depth, or location landmarks..."></textarea>
+
+                    <!-- Step 4: Anonymous Reporting Toggle (DPDP Act) -->
+                    <div style="background:var(--bg-subtle); border:1px solid var(--border-light); border-radius:var(--radius-sm); padding:10px 12px; margin-bottom:16px; font-size:11.5px; color:var(--text-secondary); display:flex; gap:8px;">
+                        <input type="checkbox" id="wizardAnonymous" checked style="margin-top:2px;" />
+                        <div>
+                            <strong style="color:var(--text-heading);">Step 4: Anonymous Reporting Toggle 🥷</strong><br>
+                            Protected under DPDP Act 2023. Pedestrian faces and vehicle license plates are automatically blurred.
+                        </div>
+                    </div>
+
+                    <!-- Step 5: Submit -->
+                    <button type="submit" class="btn-primary-action" id="wizardSubmitBtn" style="width:100%; justify-content:center;">
+                        Step 5: Submit Report to Municipal PWD ➔
+                    </button>
+                </form>
             </div>
 
-            <h2 style="font-size:18px; font-weight:800; color:var(--text-heading); margin-bottom:4px;">Report Civic Hazard</h2>
-            <p style="font-size:12.5px; color:var(--text-secondary); margin-bottom:16px;">DRISHTI AI will extract coordinates, assess severity, and assign to the local ward authority.</p>
+            <!-- Confirmation Screen (Rendered after Step 5 submission) -->
+            <div id="wizardConfirmationContainer" style="display:none;" class="confirmation-receipt-box">
+                <div style="font-size:46px; margin-bottom:8px;">✅</div>
+                <h3 style="font-size:20px; font-weight:800; color:var(--text-heading);">Report Successfully Registered</h3>
+                <p style="font-size:13px; color:var(--text-secondary); margin-top:4px;">Your civic grievance has been analyzed by DRISHTI AI and routed to the municipal division.</p>
 
-            <form id="civicReportForm" onsubmit="handleWizardSubmit(event)">
-                <!-- Step 1: Photo Upload / Demo Photo -->
-                <div class="upload-dropzone" onclick="triggerPhotoUpload()">
-                    <input type="file" id="wizardFileInput" accept="image/*" style="display:none;" onchange="onWizardPhotoPicked(event)" />
-                    <div id="dropzoneText">
-                        <div style="font-size:30px; margin-bottom:4px;">📸</div>
-                        <strong style="color:var(--text-heading); font-size:13.5px;">Tap to Take Photo or Upload</strong>
-                        <div style="font-size:11.5px; color:var(--text-secondary); margin-top:4px;">High clarity helps AI estimate crater depth</div>
-                    </div>
-                    <img id="wizardPreviewImg" class="upload-preview-box" alt="Preview" />
-                </div>
-                <button type="button" class="btn-secondary-action" onclick="useDemoPotholePhoto()" style="width:100%; justify-content:center; margin-bottom:14px; font-size:12.5px;">
-                    🖼️ Use Verified Pothole Sample Photo
-                </button>
+                <div class="receipt-id-badge" id="receiptIncidentId">INC-GWL-2026-9812</div>
 
-                <!-- Step 2: Category & Description -->
-                <label style="font-size:11.5px; font-weight:700; color:var(--text-secondary); display:block; margin-bottom:4px;">Hazard Category *</label>
-                <select class="input-control" id="wizardCategory">
-                    <option value="pothole">🕳️ Road Surface Pothole</option>
-                    <option value="broken_streetlight">💡 Broken Streetlight / Dark Blackspot</option>
-                    <option value="waterlogging">🌊 Hazardous Waterlogging & Open Culvert</option>
-                    <option value="destructed_border">🚧 Broken Guardrail / Damaged Divider</option>
-                    <option value="garbage_overflow">🗑️ Solid Waste Spillage</option>
-                    <option value="illegal_banner">🚩 Illegal Banner / Hoarding</option>
-                    <option value="stray_animal">🐄 Stray Animal Traffic Hazard</option>
-                </select>
-
-                <!-- Description & Optional Voice Dictation -->
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-                    <label style="font-size:11.5px; font-weight:700; color:var(--text-secondary);">Description</label>
-                    <button type="button" onclick="startVoiceInput()" style="background:none; border:none; color:var(--saffron-primary); font-size:11.5px; font-weight:700; cursor:pointer;">
-                        🎙️ <span id="voiceStatus">Speak (Hindi/Eng)</span>
-                    </button>
-                </div>
-                <textarea class="input-control" id="wizardDesc" rows="2" placeholder="Briefly describe the danger, depth, or location landmarks..."></textarea>
-
-                <!-- Step 3: Location -->
-                <label style="font-size:11.5px; font-weight:700; color:var(--text-secondary); display:block; margin-bottom:4px;">Location / Ward Landmark</label>
-                <input type="text" class="input-control" id="wizardLocationInput" value="Station Road, Ward 34, Maharaj Bada, Gwalior" />
-
-                <!-- Step 4: Privacy & Anonymous Protection -->
-                <div style="background:var(--bg-subtle); border:1px solid var(--border-light); border-radius:var(--radius-sm); padding:10px 12px; margin-bottom:16px; font-size:11.5px; color:var(--text-secondary); display:flex; gap:8px;">
-                    <input type="checkbox" id="wizardAnonymous" checked style="margin-top:2px;" />
-                    <div>
-                        <strong style="color:var(--text-heading);">Submit Anonymously 🥷</strong><br>
-                        Protected under DPDP Act 2023. Pedestrian faces and vehicle license plates are automatically blurred.
-                    </div>
+                <div style="background:var(--bg-subtle); border:1px solid var(--border-light); border-radius:var(--radius-md); padding:12px 14px; text-align:left; font-size:12px; margin:16px 0; display:flex; flex-direction:column; gap:6px;">
+                    <div>🏛️ <strong>Assigned Authority:</strong> Gwalior Municipal Corp / PWD Road Division</div>
+                    <div>📍 <strong>Ward & Zone:</strong> <span id="receiptWardText">Ward 34 (Maharaj Bada)</span></div>
+                    <div>⏱️ <strong>SLA Turnaround:</strong> 24-48 Hours</div>
+                    <div>🔒 <strong>Privacy:</strong> Anonymous Resident (DPDP Act Protected)</div>
                 </div>
 
-                <button type="submit" class="btn-primary-action" id="wizardSubmitBtn" style="width:100%; justify-content:center;">
-                    Submit Grievance to Municipal PWD ➔
-                </button>
-            </form>
+                <div style="display:flex; gap:10px; justify-content:center;">
+                    <button class="btn-primary-action" onclick="viewNewlySubmittedIncident()">View Incident</button>
+                    <button class="btn-secondary-action" onclick="closeReportWizard()">Done</button>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -1865,8 +2001,8 @@
                 timestamp: "2026-09-20 10:36:55 IST",
                 ai_confidence: "94.2%",
                 sensor_fusion: "Camera Vision + 1.48g IMU Shock",
-                sightings_count: 4,
-                sightings_text: "4 sightings across 3 transit buses (BUS-01, BUS-04, BUS-08) + 1 citizen",
+                sightings_count: 7,
+                sightings_text: "7 independent sightings across 3 buses (BUS-01, BUS-04, BUS-08) + 2 citizens",
                 department: "Gwalior Municipal Corp / PWD Road Division",
                 affected_count: 48,
                 endorsed: false,
@@ -1991,6 +2127,7 @@
         let leafletFullScreenMap = null;
         let mapMarkersList = [];
         let currentlyViewingIncident = null;
+        let lastCreatedIncidentId = null;
 
         // Startup
         document.addEventListener("DOMContentLoaded", () => {
@@ -2150,7 +2287,7 @@
                             <div class="card-pills-row">
                                 <span class="chip-meta chip-ai-verified">✓ AI Verified (${item.ai_confidence})</span>
                                 <span class="chip-meta">👁️ ${item.sightings_count} Sighting(s)</span>
-                                <span class="chip-meta chip-dept">${item.department.split('/')[1] || item.department}</span>
+                                <span class="chip-meta chip-dept">🏛️ ${item.department.split('/')[1] || item.department}</span>
                             </div>
 
                             <div class="card-action-bar" onclick="event.stopPropagation()">
@@ -2368,8 +2505,10 @@
             triggerToast("💬 Comment recorded on municipal ticket.");
         }
 
-        // ================= REPORT WIZARD (5 STEPS) =================
+        // ================= REPORT WIZARD (5 STEPS WITH CONFIRMATION SCREEN) =================
         function openReportWizard() {
+            document.getElementById("wizardFormContainer").style.display = 'block';
+            document.getElementById("wizardConfirmationContainer").style.display = 'none';
             document.getElementById("reportWizardOverlay").classList.add("active");
         }
         function closeReportWizard() {
@@ -2416,18 +2555,20 @@
 
             setTimeout(() => {
                 const cat = document.getElementById("wizardCategory").value;
+                const severity = document.getElementById("wizardSeverity").value;
                 const desc = document.getElementById("wizardDesc").value.trim() || `Civic hazard reported: ${cat}`;
                 const loc = document.getElementById("wizardLocationInput").value || "Station Road, Ward 34, Gwalior";
                 const isAnon = document.getElementById("wizardAnonymous").checked;
                 const newId = `INC-GWL-2026-${Math.floor(1000 + Math.random() * 9000)}`;
+                lastCreatedIncidentId = newId;
 
                 const newIncident = {
                     id: newId,
                     title: cat === 'pothole' ? 'Road Surface Pothole' : cat.replace(/_/g, ' ').toUpperCase(),
                     category: cat,
                     category_label: cat.replace(/_/g, ' ').toUpperCase(),
-                    severity: "Critical",
-                    severity_color: "pill-critical",
+                    severity: severity,
+                    severity_color: severity === 'Critical' ? 'pill-critical' : 'pill-progress',
                     status: "PENDING",
                     status_label: "🔴 Pending Action",
                     source: "CITIZEN",
@@ -2463,10 +2604,22 @@
                 if (leafletNearbyMap) plotMapMarkers(leafletNearbyMap);
 
                 btn.disabled = false;
-                btn.textContent = "Submit Grievance to Municipal PWD ➔";
-                closeReportWizard();
-                triggerToast(`✅ Grievance #${newId} dispatched to Ward 34 PWD!`);
-            }, 500);
+                btn.textContent = "Step 5: Submit Report to Municipal PWD ➔";
+
+                // Show Step 5 Confirmation Screen
+                document.getElementById("wizardFormContainer").style.display = 'none';
+                document.getElementById("wizardConfirmationContainer").style.display = 'block';
+                document.getElementById("receiptIncidentId").textContent = newId;
+                document.getElementById("receiptWardText").textContent = loc;
+                triggerToast(`✅ Grievance #${newId} recorded & dispatched!`);
+            }, 600);
+        }
+
+        function viewNewlySubmittedIncident() {
+            closeReportWizard();
+            if (lastCreatedIncidentId) {
+                openIncidentDeepDive(lastCreatedIncidentId);
+            }
         }
 
         // ================= VOICE INPUT =================
@@ -2501,7 +2654,7 @@
 
         // ================= NAVIGATION BETWEEN SCREENS =================
         function navigateToScreen(screenId, navEl) {
-            document.querySelectorAll("#screenHome, #screenMap, #screenMyReports, #screenBusVision").forEach(s => s.style.display = 'none');
+            document.querySelectorAll("#screenHome, #screenMap, #screenMyReports, #screenBusVision, #screenProfile").forEach(s => s.style.display = 'none');
             document.querySelectorAll(".mob-nav-item, .desktop-nav-link").forEach(n => n.classList.remove("active"));
 
             if (screenId === 'home') {
@@ -2519,6 +2672,9 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             } else if (screenId === 'bus_vision') {
                 document.getElementById("screenBusVision").style.display = 'block';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else if (screenId === 'profile') {
+                document.getElementById("screenProfile").style.display = 'block';
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
@@ -2567,6 +2723,7 @@
                             <span style="font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; color:var(--navy-gov);">${item.id}</span>
                             <h3 style="font-size:15px; font-weight:800; color:var(--text-heading); margin-top:2px;">${item.title}</h3>
                             <div style="font-size:12px; color:var(--text-secondary); margin-top:3px;">📍 ${item.location_name}</div>
+                            <div style="font-size:11px; color:var(--text-secondary); margin-top:4px;">⏱️ Reported: ${item.reported_time} · ${item.department}</div>
                         </div>
                         <span class="badge-status-pill ${item.status === 'FIXED' ? 'pill-fixed' : (item.status === 'IN_PROGRESS' ? 'pill-progress' : 'pill-critical')}" style="position:static;">
                             ${item.status_label}
@@ -2589,7 +2746,7 @@
 
             if (currentLang === 'HI') {
                 document.getElementById("heroHeading").textContent = "अपने शहर को सुरक्षित बनाएं";
-                document.getElementById("heroDesc").textContent = "दृष्टि एआई (DRISHTI AI) सिटी बसों पर लगे कैमरों और नागरिक रिपोर्टों से सड़क सुरक्षा की निगरानी करता है।";
+                document.getElementById("heroDesc").textContent = "नागरिक और एआई-सक्षम बस कैमरे मिलकर सड़क सुरक्षा की निगरानी करते हैं।";
                 document.getElementById("heroCtaReport").textContent = "समस्या दर्ज करें";
                 document.getElementById("heroCtaNearby").textContent = "नजदीकी समस्याएं देखें";
                 document.getElementById("communityFeedTitle").textContent = "सामुदायिक शिकायत सूची";
@@ -2597,7 +2754,7 @@
                 triggerToast("भाषा हिन्दी में बदली गई");
             } else {
                 document.getElementById("heroHeading").textContent = "Make Your City Safer";
-                document.getElementById("heroDesc").textContent = "DRISHTI AI continuously monitors roads using AI-enabled public buses and citizen reports. Flag road hazards, track municipal repair status, and improve civic infrastructure in real time.";
+                document.getElementById("heroDesc").textContent = "Citizens and AI-powered public transport cameras work together to identify civic problems. Flag road hazards, track municipal repair status, and improve civic infrastructure in real time.";
                 document.getElementById("heroCtaReport").textContent = "Report Civic Issue";
                 document.getElementById("heroCtaNearby").textContent = "View Nearby Issues";
                 document.getElementById("communityFeedTitle").textContent = "Community Civic Feed";
